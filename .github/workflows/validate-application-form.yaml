@@ -5,7 +5,7 @@ on:
     types: [ opened, edited, reopened, labeled, unlabeled, unassigned ]
 
 jobs:
-  update-issue:
+  validate-issue:
     runs-on: ubuntu-latest
     steps:
       - name: Set label as valid
@@ -26,9 +26,14 @@ jobs:
           labels: 'application-form,${{ env.ISSUE_LABEL }}'
           assignees: '${{ github.actor }}'
           emoji: 'rocket'
+
+    outputs:
+      issue-label: ${{ env.ISSUE_LABEL }}
   
   create-comment:
     runs-on: ubuntu-latest
+    env:
+      ISSUE_LABEL: ${{ needs.validate-issue.outputs.issue-label }}
     steps:
       - name: Welcome comment
         if: github.event.action == 'opened' || github.event.action == 'reopened'
