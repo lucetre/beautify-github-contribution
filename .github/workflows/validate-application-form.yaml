@@ -30,21 +30,22 @@ jobs:
   create-comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Create comment
-        uses: actions-cool/issues-helper@v3
-        with:
-          actions: 'create-comment'
-          body: |
-            Hello @${{ github.event.issue.user.login }}. Add some comments.
-          emoji: '+1,heart'
-      - run: echo ${{toJson(github.event)}}
       - name: Welcome comment
-        if: github.event.issue.type == 'opened'
+        if: github.event.action == 'opened' || github.event.action == 'reopened'
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'create-comment'
           body: |
             Welcome, Contributors!
             Our bot will soon validate your form and provide preview via issue comments below.
-          emoji: '+1,heart'
+          emoji: 'eyes,heart'
+          
+      - name: Validation comment
+        if: github.event.action != 'opened' && github.event.action != 'reopened'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'validate-comment'
+          body: |
+            Hello @${{ github.event.issue.user.login }}. Add some comments. Invalid.
+          emoji: 'confused'
   
