@@ -63,7 +63,7 @@ jobs:
           emoji: 'eyes,heart'
 
       - name: Valid comment
-        if: env.ISSUE_LABEL == 'valid' && github.event.action != 'opened' && github.event.action != 'reopened'
+        if: env.ISSUE_LABEL == 'valid'
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'create-comment'
@@ -73,7 +73,7 @@ jobs:
           emoji: '+1,laugh,hooray'
 
       - name: Invalid comment
-        if: env.ISSUE_LABEL == 'invalid' && github.event.action != 'opened' && github.event.action != 'reopened'
+        if: env.ISSUE_LABEL == 'invalid'
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'create-comment'
