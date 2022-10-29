@@ -75,8 +75,8 @@ jobs:
         run: |
           pip install numpy
           python tools/create_contribution_md.py
-          cat tools/contribution/graph.md | sed 's/$/\\n'
-          echo CONTRIBUTION_GRAPH="$(cat tools/contribution/graph.md | sed 's/$/\\n')" >> $GITHUB_ENV
+          cat tools/contribution/graph.md | sed '$ ! s/$/\\n/' | tr -d '\n'
+          echo CONTRIBUTION_GRAPH="$(cat tools/contribution/graph.md | sed '$ ! s/$/\\n/' | tr -d '\n')" >> $GITHUB_ENV
 
       - name: Valid comment
         if: env.ISSUE_LABEL == 'valid'
