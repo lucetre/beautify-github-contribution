@@ -21,7 +21,7 @@ jobs:
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'update-issue'
-          title: '${{ github.event.issue.title }} - ${{ github.actor }}'
+          title: 'GitHub Contribution Graph Application Form - ${{ github.actor }}'
           body: ${{ github.event.issue.title }}
           update-mode: 'replace'
           labels: 'application-form,${{ env.ISSUE_LABEL }}'
