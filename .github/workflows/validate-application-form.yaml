@@ -73,9 +73,14 @@ jobs:
       - name: Generate contribution graph preview
         if: env.ISSUE_LABEL == 'valid'
         run: |
-          echo -e "${{ github.event.issue.body }}" | sed '/^$/d' | sed '1,/```/d' | sed '/```/,$d' >> tools/contribution/graph.txt
+          ISSUE_BODY=$(cat << EOF
+          ${{ github.event.issue.body }}
+          EOF
+          )
+
+          echo -e $ISSUE_BODY | sed '/^$/d' | sed '1,/```/d' | sed '/```/,$d' >> tools/contribution/graph.txt
           cat tools/contribution/graph.txt
-          
+
           pip install numpy
           python tools/create_contribution_md.py
 
