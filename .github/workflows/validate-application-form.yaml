@@ -40,12 +40,23 @@ jobs:
             Our bot will soon validate your form and provide preview via issue comments below.
           emoji: 'eyes,heart'
 
-      - name: Validation comment
-        if: github.event.action != 'opened' && github.event.action != 'reopened'
+      - name: Valid comment
+        if: env.ISSUE_LABEL == 'valid' && github.event.action != 'opened' && github.event.action != 'reopened'
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'create-comment'
           body: |
-            Hello @${{ github.event.issue.user.login }}. Add some comments. Invalid.
-          emoji: 'confused'
+            Hey @${{ github.event.issue.user.login }},
+            Your application form is correctly validated. Press Checkbox 'Start your GitHub Contribution' above to deploy.
+          emoji: '+1,laugh,hooray'
+
+      - name: Invalid comment
+        if: env.ISSUE_LABEL == 'invalid' && github.event.action != 'opened' && github.event.action != 'reopened'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'create-comment'
+          body: |
+            Hello @${{ github.event.issue.user.login }},
+            Looks like your application form is invalid. Please check it again.
+          emoji: '-1,confused'
   
