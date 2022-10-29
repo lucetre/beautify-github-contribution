@@ -1,5 +1,5 @@
-name: Bug Report
-description: File a bug report
+name: GitHub Contribution Graph Form
+description: Submit your desired GitHub Contribution Graph via below form
 title: "[Bug]: "
 labels: ["bug", "triage"]
 assignees:
