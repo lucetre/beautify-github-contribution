@@ -8,6 +8,9 @@ jobs:
   validate-issue:
     runs-on: ubuntu-latest
     steps:
+      - run: |
+          echo "${{ github.event.issue.body }}"
+
       - name: Lock issue
         uses: actions-cool/issues-helper@v3
         with:
