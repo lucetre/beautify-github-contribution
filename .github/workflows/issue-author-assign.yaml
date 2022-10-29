@@ -14,7 +14,7 @@ jobs:
           actions: 'add-assignees'
           assignees: ${{ github.actor }}
 
-  add-labels:
+  update-label-as-valid:
     runs-on: ubuntu-latest
     if: contains(github.event.issue.body, 'xxx') == true
     steps:
@@ -22,6 +22,26 @@ jobs:
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'add-labels'
+          labels: 'valid'
+      - name: Remove labels
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'remove-labels'
+          labels: 'invalid'
+
+  update-label-as-invalid:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.body, 'xxx') == false
+    steps:
+      - name: Add labels
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'add-labels'
+          labels: 'invalid'
+      - name: Remove labels
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'remove-labels'
           labels: 'valid'
   
   create-comment:
