@@ -73,12 +73,15 @@ jobs:
       - name: Generate contribution graph preview
         if: env.ISSUE_LABEL == 'valid'
         run: |
+          echo -e "${{ github.event.issue.body }}" | sed '/^$/d' | sed '1,/```/d' | sed '/```/,$d' >> tools/contribution/graph.txt
+          cat tools/contribution/graph.txt
+          
           pip install numpy
           python tools/create_contribution_md.py
 
           cat tools/contribution/graph.md
           CONTRIBUTION_GRAPH=$(cat tools/contribution/graph.md)
-          
+
           echo "CONTRIBUTION_GRAPH<<EOF" >> $GITHUB_ENV
           echo "$CONTRIBUTION_GRAPH" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
@@ -90,7 +93,7 @@ jobs:
           actions: 'create-comment'
           body: |
             Awesome @${{ github.event.issue.user.login }}! Your application form has been correctly validated.
-            Press above checkbox **Start your GitHub Contribution** to deploy.
+            Press above checkbox **Start my GitHub Contribution** to deploy.
             ${{ env.CONTRIBUTION_GRAPH }}
           emoji: '+1,laugh,hooray'
 
