@@ -2,7 +2,7 @@ name: Validate Application Form
 
 on:
   issues:
-    types: [ opened, edited, reopened, labeled, unlabeled, unassigned ]
+    types: [ opened, edited, reopened, unassigned ]
 
 jobs:
   validate-issue:
@@ -13,10 +13,10 @@ jobs:
         with:
           actions: 'lock-issue'
       
-      - name: Set labels
+      - name: Set label as validating
         uses: actions-cool/issues-helper@v3
         with:
-          actions: 'set-labels'
+          actions: 'update-issue'
           labels: 'application-form,validating'
 
       - name: Set label as valid
@@ -51,7 +51,7 @@ jobs:
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'unlock-issue'
-          
+
       - name: Welcome comment
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         uses: actions-cool/issues-helper@v3
