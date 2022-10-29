@@ -10,7 +10,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Select a form section between Form-A, B, C to auto-generated your contribution graph. Only one of your changes will be applied.
+        Select a form section between A, B, C to auto-generated your contribution graph. Only one of your changes will be applied.
         Our bot will validate your form and provide preview via issue comments.
   - type: dropdown
     id: pattern
@@ -50,7 +50,7 @@ body:
   - type: checkboxes
     id: terms
     attributes:
-      label: Active
+      label: Enable Contribution
       description: By checking this, you agree to upload commits to draw an auto-generated contribution graph on your GitHub profile.
       options:
         - label: Let my GitHub bot start to contribute beautifully from now on.
