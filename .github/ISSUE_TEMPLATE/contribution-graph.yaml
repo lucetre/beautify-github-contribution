@@ -4,39 +4,51 @@ title: "GitHub Contribution Graph Application Form"
 labels: ["application-form", "invalid"]
 assignees: []
 body:
-  - type: textarea
-    id: contribution-graph
+  - type: markdown
     attributes:
-      label: Customize your GitHub Contribution pattern
-      description: You can create contribution graph on your own.
-      placeholder: Mark contribution as 🟢 or inaction as ⚪.
+      value: "## Welcome!"
+  - type: markdown
+    attributes:
       value: |
-        | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|36|37|38|39|40|41|42|43|44|45|46|47|48|49|50|51|52|53|
-        |--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
-        |⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|
-        |🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|
-        |⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|
-        |🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|
-        |⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|
-        |🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|
-        |⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|🟢|⚪|
-    validations:
-      required: true
+        Select between [1], [2], [3] to auto-generated your contribution graph.
+        Our bot will validate your form and provide preview via issue comments.
   - type: dropdown
     id: pattern
     attributes:
-      label: Which pattern do you want for GitHub Contribution Graph to be?
+      label: '[1] Select a shape you want for GitHub Contribution Graph to be'
       multiple: false
       options:
         - Chessboard
         - Love
         - Star
-        - GitHub
+  - type: input
+    id: string
+    attributes:
+      label: '[2] Type you want for GitHub Contribution Graph to be'
+      description: "How often do you or others encounter this bug?"
+      placeholder: "YOUR NAME"
+    validations:
+      required: true
+ - type: textarea
+    id: contribution-graph
+    attributes:
+      label: '[3] Manually design your GitHub Contribution pattern'
+      description: You can create contribution graph on your own. Mark your contribution as `1` or inaction as `0`.
+      value: |
+        01010101010101010101010101010101010101010101010101010
+        10101010101010101010101010101010101010101010101010101
+        01010101010101010101010101010101010101010101010101010
+        10101010101010101010101010101010101010101010101010101
+        01010101010101010101010101010101010101010101010101010
+        10101010101010101010101010101010101010101010101010101
+        01010101010101010101010101010101010101010101010101010
+    validations:
+      required: false
   - type: checkboxes
     id: terms
     attributes:
-      label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
+      label: Active
+      description: By checking this, you agree to upload commits to draw an auto-generated contribution graph on your GitHub profile.
       options:
-        - label: I agree to follow this project's Code of Conduct
-          required: true
+        - label: Let my GitHub bot start to contribute beautifully.
+          required: false
