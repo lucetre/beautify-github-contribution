@@ -2,13 +2,13 @@ name: Issue Author Assignment
 
 on:
   issues:
-    types: [ opened, edited, reopened, labeled, unlabeled ]
+    types: [ opened, edited, reopened, labeled, unlabeled, unassigned ]
 
 jobs:
   update-issue:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{github.event.issue.body}}
+      - run: echo "${{github.event.issue.body}}"
       - name: Set label as valid
         if: contains(github.event.issue.body, 'xxx') == true
         run: echo "ISSUE_LABEL=valid" >> $GITHUB_ENV
