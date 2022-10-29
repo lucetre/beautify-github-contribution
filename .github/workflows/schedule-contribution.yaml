@@ -1,6 +1,6 @@
 name: Beautify my GitHub Contribution 
 on:
-  issues: assigned
+  issues:
 
 jobs:
   create-cron-job:
