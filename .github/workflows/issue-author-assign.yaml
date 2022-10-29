@@ -2,13 +2,14 @@ name: Issue Author Assignment
 
 on:
   issues:
-    types: [opened]
+    types: [ opened, edited ]
 
 jobs:
   auto-assign:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Auto-assign issue'
-        uses: pozil/auto-assign-issue@v1
+      - name: Add assigness
+        uses: actions-cool/issues-helper@v3
         with:
+          actions: 'add-assignees'
           assignees: ${{ github.actor }}
