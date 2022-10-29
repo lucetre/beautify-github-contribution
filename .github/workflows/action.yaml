@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get current date
-        run: echo "MY_DATE=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+        run: echo "MY_DATE=$(date +%Y-%m-%d-%H:%M:%s)" >> $GITHUB_ENV
         
       - name: Update GitHub Profile README
         uses: theboi/github-update-readme@v1.0
@@ -20,6 +20,6 @@ jobs:
         with:
           header: "Hey, guys! 👋"
           subhead: "Contribution log for beautifying your GitHub contribution graph."
-          footer: ${{ github.actor }} - ${{ github.triggering_actor	}} - ${{ github.event_name }} - ${{ env.MY_DATE }}
+          footer: ${{ env.MY_DATE }} - ${{ github.actor }} - ${{ github.triggering_actor }} - ${{ github.event_name }}
           path: CONTRIBUTION.md
           repoCount: 0
