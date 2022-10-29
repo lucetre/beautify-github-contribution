@@ -25,18 +25,26 @@ if (np.array([len(week) for week in contribution_graph]) == num_of_weeks).all() 
     sys.exit('The num_of_weeks not matches to other neighbor weekdays.')
 
 with open("tools/contribution/graph.md", "w") as f:
-    for i in range(1, num_of_weeks+1):
-        f.write(f'|{i:2d}')
-    f.write('|\n')
+    # for i in range(1, num_of_weeks+1):
+    #     f.write(f'|{i:2d}')
+    # f.write('|\n')
 
-    for i in range(1, num_of_weeks+1):
-        f.write('|--')
-    f.write('|\n')
+    # for i in range(1, num_of_weeks+1):
+    #     f.write('|--')
+    # f.write('|\n')
+
+    # for i in range(DAYS_IN_A_WEEK):
+    #     for j in range(num_of_weeks):
+    #         if contribution_graph[i][j] == '0':
+    #             f.write('|:white_circle:')
+    #         if contribution_graph[i][j] == '1':
+    #             f.write('|:green_circle:')
+    #     f.write('|\n')
 
     for i in range(DAYS_IN_A_WEEK):
         for j in range(num_of_weeks):
             if contribution_graph[i][j] == '0':
-                f.write('|:white_circle:')
+                f.write(':white_circle:')
             if contribution_graph[i][j] == '1':
-                f.write('|:green_circle:')
-        f.write('|\n')
+                f.write(':green_circle:')
+        f.write('\n')
