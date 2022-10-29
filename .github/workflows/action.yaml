@@ -12,6 +12,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          header: "Hey, I'm Ryan! 👋"
-          subhead: "Currently a student in Singapore, passionate about creating all-things-tech to improve society."
+          header: "Hey, guys! 👋"
+          subhead: "Contribution log for beautifying your github contribution graph."
+          repoCount: 0
           footer: "**Learn more about me at [ryanthe.com](https://www.ryanthe.com)!**"
+          path: CONTRIBUTION.md
