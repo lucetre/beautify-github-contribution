@@ -12,6 +12,12 @@ jobs:
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'lock-issue'
+      
+      - name: Set labels
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'set-labels'
+          labels: 'application-form,validating'
 
       - name: Set label as valid
         if: contains(github.event.issue.body, 'xxx') == true
@@ -72,7 +78,7 @@ jobs:
           emoji: '-1,confused'
 
       - name: Unlock issue
-          uses: actions-cool/issues-helper@v3
-          with:
-            actions: 'unlock-issue'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'unlock-issue'
   
