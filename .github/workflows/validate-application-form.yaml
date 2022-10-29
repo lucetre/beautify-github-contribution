@@ -31,6 +31,7 @@ jobs:
       issue-label: ${{ env.ISSUE_LABEL }}
   
   create-comment:
+    needs: validate-issue
     runs-on: ubuntu-latest
     env:
       ISSUE_LABEL: ${{ needs.validate-issue.outputs.issue-label }}
