@@ -12,15 +12,15 @@ body:
       value: |
         Select between 1, 2, 3 to auto-generated your contribution graph.
         Our bot will validate your form and provide preview via issue comments.
-#   - type: dropdown
-#     id: pattern
-#     attributes:
-#       label: Choose a shape you want for GitHub Contribution Graph to be.
-#       multiple: false
-#       options:
-#         - Chessboard
-#         - Love
-#         - Star
+  - type: dropdown
+    id: pattern
+    attributes:
+      label: Choose a shape you want for GitHub Contribution Graph to be.
+      multiple: false
+      options:
+        - Chessboard
+        - Love
+        - Star
 #   - type: input
 #     id: string
 #     attributes:
