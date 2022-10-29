@@ -77,8 +77,9 @@ jobs:
           ${{ github.event.issue.body }}
           EOF
           )
+          echo hello
 
-          echo -e $ISSUE_BODY | sed '/^$/d' | sed '1,/```/d' | sed '/```/,$d' >> tools/contribution/graph.txt
+          echo -e "$ISSUE_BODY" | sed '/^$/d' | sed '1,/```/d' | sed '/```/,$d' >> tools/contribution/graph.txt
           cat tools/contribution/graph.txt
 
           pip install numpy
