@@ -6,12 +6,12 @@ assignees: []
 body:
   - type: markdown
     attributes:
-      value: "## Welcome!"
+      value: "# Welcome, Contributors!"
   - type: markdown
     attributes:
       value: |
-        Select between 1, 2, 3 to auto-generated your contribution graph.
-        Our bot will validate your form and provide preview via issue comments.
+        ### Select between 1, 2, 3 to auto-generated your contribution graph.
+        ### Our bot will validate your form and provide preview via issue comments.
   - type: dropdown
     id: pattern
     attributes:
@@ -21,14 +21,15 @@ body:
         - Chessboard
         - Love
         - Star
-#   - type: input
-#     id: string
-#     attributes:
-#       label: Type your string to view on GitHub Contribution Graph
-#       description: "English letters or numbers can be only accepted."
-#       placeholder: "YOUR NAME"
-#     validations:
-#       required: true
+        - GitHub
+  - type: input
+    id: string
+    attributes:
+      label: Type your string to view on GitHub Contribution Graph
+      description: "English letters or numbers can be only accepted."
+      placeholder: "YOUR NAME"
+    validations:
+      required: true
 #  - type: textarea
 #     id: contribution-graph
 #     attributes:
