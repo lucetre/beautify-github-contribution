@@ -8,7 +8,6 @@ jobs:
   update-issue:
     runs-on: ubuntu-latest
     steps:
-      - run: echo -e "${{ github.event.issue.body }}"
       - name: Set label as valid
         if: contains(github.event.issue.body, 'xxx') == true
         run: echo "ISSUE_LABEL=valid" >> $GITHUB_ENV
@@ -37,5 +36,15 @@ jobs:
           actions: 'create-comment'
           body: |
             Hello @${{ github.event.issue.user.login }}. Add some comments.
+          emoji: '+1,heart'
+      - run: echo ${{github.event.issue.type}}
+      - name: Welcome comment
+        if: github.event.issue.type == 'opened'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'create-comment'
+          body: |
+            Welcome, Contributors!
+            Our bot will soon validate your form and provide preview via issue comments below.
           emoji: '+1,heart'
   
