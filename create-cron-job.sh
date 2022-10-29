@@ -9,10 +9,7 @@ PATTERN=$(echo -e "$ISSUE_BODY" | sed '/^$/d' | sed '/### Code/,$d' | sed '1,/##
 # echo -e "$ISSUE_BODY" | sed '/^$/d' | sed '/### Code/,$!d'``
 CODE_OF_CONDUCT=$(echo -e "$ISSUE_BODY" | sed '/^$/d' | sed '1,/### Code/d')
 
-echo -e "$CUSTOM"
-echo $PATTERN
-echo $CODE_OF_CONDUCT
+echo -e "$CUSTOM" | tr '⚪' '0' | sed -r 's/[0]+/0/g' | tr '🟢' '1' | sed -r 's/[1]+/1/g' | sed -r 's/[|]+//g'
 
-# $ISSUE_BODY | sed '/^$/d' | sed '/### Code/,$d' | sed '0,/^### Code$/d'
-
-#echo "Hello: world" | cut -f1 -d":"
+# echo $PATTERN
+# echo $CODE_OF_CONDUCT

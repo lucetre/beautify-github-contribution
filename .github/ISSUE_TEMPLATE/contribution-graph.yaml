@@ -12,43 +12,45 @@ body:
       value: |
         Select between 1, 2, 3 to auto-generated your contribution graph.
         Our bot will validate your form and provide preview via issue comments.
-  - type: dropdown
-    id: pattern
-    attributes:
-      label: Select a shape you want for GitHub Contribution Graph to be
-      multiple: false
-      options:
-        - Chessboard
-        - Love
-        - Star
-  - type: input
-    id: string
-    attributes:
-      label: Type your string to view on GitHub Contribution Graph
-      description: "English letters or numbers can be only accepted."
-      placeholder: "YOUR NAME"
-    validations:
-      required: true
- - type: textarea
-    id: contribution-graph
-    attributes:
-      label: Manually design your GitHub Contribution pattern
-      description: You can create contribution graph on your own. Mark your contribution as 1 or inaction as 0.
-      value: |
-        01010101010101010101010101010101010101010101010101010
-        10101010101010101010101010101010101010101010101010101
-        01010101010101010101010101010101010101010101010101010
-        10101010101010101010101010101010101010101010101010101
-        01010101010101010101010101010101010101010101010101010
-        10101010101010101010101010101010101010101010101010101
-        01010101010101010101010101010101010101010101010101010
-    validations:
-      required: false
-  - type: checkboxes
-    id: terms
-    attributes:
-      label: Active
-      description: By checking this, you agree to upload commits to draw an auto-generated contribution graph on your GitHub profile.
-      options:
-        - label: Let my GitHub bot start to contribute beautifully.
-          required: false
+#   - type: dropdown
+#     id: pattern
+#     attributes:
+#       label: Choose a shape you want for GitHub Contribution Graph to be.
+#       multiple: false
+#       options:
+#         - Chessboard
+#         - Love
+#         - Star
+#   - type: input
+#     id: string
+#     attributes:
+#       label: Type your string to view on GitHub Contribution Graph
+#       description: "English letters or numbers can be only accepted."
+#       placeholder: "YOUR NAME"
+#     validations:
+#       required: true
+#  - type: textarea
+#     id: contribution-graph
+#     attributes:
+#       label: Manually design your GitHub Contribution pattern
+#       description: You can create contribution graph on your own. Mark your contribution as 1 or inaction as 0.
+#       value: |
+#         ```
+#         01010101010101010101010101010101010101010101010101010
+#         10101010101010101010101010101010101010101010101010101
+#         01010101010101010101010101010101010101010101010101010
+#         10101010101010101010101010101010101010101010101010101
+#         01010101010101010101010101010101010101010101010101010
+#         10101010101010101010101010101010101010101010101010101
+#         01010101010101010101010101010101010101010101010101010
+#         ```
+#     validations:
+#       required: false
+#   - type: checkboxes
+#     id: terms
+#     attributes:
+#       label: Active
+#       description: By checking this, you agree to upload commits to draw an auto-generated contribution graph on your GitHub profile.
+#       options:
+#         - label: Let my GitHub bot start to contribute beautifully from now on.
+#           required: false
