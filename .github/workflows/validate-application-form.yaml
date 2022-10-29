@@ -69,7 +69,6 @@ jobs:
         if: env.ISSUE_LABEL == 'valid'
         with:
           python-version: '3.9'
-          cache: 'pip' # caching pip dependencies
 
       - name: Generate contribution graph preview
         if: env.ISSUE_LABEL == 'valid'
