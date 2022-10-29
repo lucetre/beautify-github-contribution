@@ -10,12 +10,12 @@ body:
   - type: markdown
     attributes:
       value: |
-        Select a form section between [1], [2], [3] to auto-generated your contribution graph. Only one of your changes will be applied.
+        Select a form section between `A`, `B`, `C` to auto-generated your contribution graph. Only one of your changes will be applied.
         Our bot will validate your form and provide preview via issue comments.
   - type: dropdown
     id: pattern
     attributes:
-      label: '[1] Choose a shape you want for GitHub Contribution Graph to be.'
+      label: '`A` Choose a shape you want for GitHub Contribution Graph to be.'
       multiple: false
       options:
         - Chessboard
@@ -25,15 +25,15 @@ body:
   - type: input
     id: string
     attributes:
-      label: '[2] Type your string to view on GitHub Contribution Graph.'
+      label: '[`B`] Type your string to view on GitHub Contribution Graph.'
       description: "English letters or numbers can be only accepted."
       placeholder: "YOUR NAME"
     validations:
-      required: true
+      required: false
   - type: textarea
     id: contribution-graph
     attributes:
-      label: '[3] Manually design your GitHub Contribution pattern.'
+      label: '`[C]` Manually design your GitHub Contribution pattern.'
       description: You can create contribution graph on your own. Mark your contribution as `1` or inaction as `0`.
       value: |
         ```
