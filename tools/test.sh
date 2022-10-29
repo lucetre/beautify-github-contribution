@@ -1,10 +1,10 @@
-ISSUE_BODY=$(cat tools/contribution/sample-issue.md)
+# ISSUE_BODY=$(cat tools/contribution/sample-issue.md)
 
 # #echo -e "$ISSUE_BODY" | sed '/^$/d' | sed '/### Which/,$d' | sed '/### Customize/,$!d'
 # CUSTOM=$(echo -e "$ISSUE_BODY" | sed '/^$/d' | sed '/### Which/,$d' | sed '1,/|--/d')
 
-PATTERN=$(echo -e "$ISSUE_BODY" | sed '/^$/d' | sed '1,/```/d' | sed '/```/,$d')
-echo -e "$PATTERN"
+# PATTERN=$(echo -e "$ISSUE_BODY" | sed '/^$/d' | sed '1,/```/d' | sed '/```/,$d')
+# echo -e "$PATTERN"
 
 # # echo -e "$ISSUE_BODY" | sed '/^$/d' | sed '/### Code/,$!d'``
 # CODE_OF_CONDUCT=$(echo -e "$ISSUE_BODY" | sed '/^$/d' | sed '1,/### Code/d')
@@ -16,3 +16,5 @@ echo -e "$PATTERN"
 
 # contribution_graph=`cat tools/contribution/graph.md | sed '$ ! s/$/\\n/' | tr -d '\n'`
 # echo "$contribution_graph"
+
+cat tools/contribution/preview.md | sed -r 's/\:white_circle\:/⚪/g' | sed -r 's/\:green_circle\:/🟢/g'
