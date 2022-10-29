@@ -67,10 +67,14 @@ jobs:
         
       - uses: actions/setup-python@v4
         if: env.ISSUE_LABEL == 'valid'
+        with:
+          python-version: '3.9'
+          cache: 'pip' # caching pip dependencies
 
       - name: Generate contribution graph preview
         if: env.ISSUE_LABEL == 'valid'
         run: |
+          pip install numpy
           python tools/create_contribution_md.py
           cat tools/contribution/graph.md
           echo CONTRIBUTION_GRAPH=$(cat tools/contribution/graph.md) >> $GITHUB_ENV
