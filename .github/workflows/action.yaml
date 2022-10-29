@@ -2,6 +2,8 @@ name: Beautify my GitHub Contribution
 
 on:
   push:
+    branches:
+      - lucetre-patch-1
 
 jobs:
   update-readme:
