@@ -1,7 +1,7 @@
 name: GitHub Contribution Graph Form
 description: Submit your desired GitHub Contribution Graph via below form
 title: "GitHub Contribution Graph Application Form"
-labels: ["request", "form"]
+labels: ["application-form", "invalid"]
 assignees: []
 body:
   - type: textarea
