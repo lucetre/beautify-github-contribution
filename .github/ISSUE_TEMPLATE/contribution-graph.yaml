@@ -10,12 +10,12 @@ body:
   - type: markdown
     attributes:
       value: |
-        Select between [1], [2], [3] to auto-generated your contribution graph.
+        Select between 1, 2, 3 to auto-generated your contribution graph.
         Our bot will validate your form and provide preview via issue comments.
   - type: dropdown
     id: pattern
     attributes:
-      label: '[1] Select a shape you want for GitHub Contribution Graph to be'
+      label: Select a shape you want for GitHub Contribution Graph to be
       multiple: false
       options:
         - Chessboard
@@ -24,16 +24,16 @@ body:
   - type: input
     id: string
     attributes:
-      label: '[2] Type you want for GitHub Contribution Graph to be'
-      description: "How often do you or others encounter this bug?"
+      label: Type your string to view on GitHub Contribution Graph
+      description: "English letters or numbers can be only accepted."
       placeholder: "YOUR NAME"
     validations:
       required: true
  - type: textarea
     id: contribution-graph
     attributes:
-      label: '[3] Manually design your GitHub Contribution pattern'
-      description: You can create contribution graph on your own. Mark your contribution as `1` or inaction as `0`.
+      label: Manually design your GitHub Contribution pattern
+      description: You can create contribution graph on your own. Mark your contribution as 1 or inaction as 0.
       value: |
         01010101010101010101010101010101010101010101010101010
         10101010101010101010101010101010101010101010101010101
