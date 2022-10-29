@@ -10,10 +10,9 @@ jobs:
       - name: Update GitHub Profile README
         uses: theboi/github-update-readme@v1.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.LINKEDART_GH_PAT }}
         with:
           header: "Hey, guys! 👋"
-          subhead: "Contribution log for beautifying your github contribution graph."
-          repoCount: 0
-          footer: "**Learn more about me at [ryanthe.com](https://www.ryanthe.com)!**"
+          subhead: "Contribution log for beautifying your GitHub contribution graph."
           path: CONTRIBUTION.md
+          repoCount: 0
