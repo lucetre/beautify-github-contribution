@@ -44,7 +44,7 @@ jobs:
             Welcome, Contributor @${{ github.event.issue.user.login }}!
             Our bot will soon validate your form and provide preview via issue comments below.
           emoji: 'eyes,heart'
-
+      - run: echo ${{ env.ISSUE_LABEL }}
       - name: Valid comment
         if: env.ISSUE_LABEL == 'valid' && github.event.action != 'opened' && github.event.action != 'reopened'
         uses: actions-cool/issues-helper@v3
