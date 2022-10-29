@@ -22,7 +22,7 @@ jobs:
         with:
           actions: 'update-issue'
           title: 'GitHub Contribution Graph Application Form - ${{ github.actor }}'
-          body: ${{ github.event.issue.title }}
+          body: ${{ github.event.issue.body }}
           update-mode: 'replace'
           labels: 'application-form,${{ env.ISSUE_LABEL }}'
           assignees: '${{ github.actor }}'
