@@ -36,15 +36,15 @@ jobs:
         with:
           actions: 'create-comment'
           body: |
-            Welcome, Contributors!
+            Welcome, Contributor @${{ github.event.issue.user.login }}!
             Our bot will soon validate your form and provide preview via issue comments below.
           emoji: 'eyes,heart'
-          
+
       - name: Validation comment
         if: github.event.action != 'opened' && github.event.action != 'reopened'
         uses: actions-cool/issues-helper@v3
         with:
-          actions: 'validate-comment'
+          actions: 'create-comment'
           body: |
             Hello @${{ github.event.issue.user.login }}. Add some comments. Invalid.
           emoji: 'confused'
