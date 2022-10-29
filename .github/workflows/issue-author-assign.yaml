@@ -5,44 +5,28 @@ on:
     types: [ opened, edited ]
 
 jobs:
-  auto-assign:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Add assigness
-        uses: actions-cool/issues-helper@v3
-        with:
-          actions: 'add-assignees'
-          assignees: ${{ github.actor }}
 
-  update-label-as-valid:
+  update-issue:
     runs-on: ubuntu-latest
-    if: contains(github.event.issue.body, 'xxx') == true
     steps:
-      - name: Add labels
+      - name: Set label as valid
+        if: contains(github.event.issue.body, 'xxx') == true
+        run: echo "ISSUE_LABEL=valid" >> $GITHUB_ENV
+        
+      - name: Set label as invalid
+        if: contains(github.event.issue.body, 'xxx') == false
+        run: echo "ISSUE_LABEL=invalid" >> $GITHUB_ENV
+        
+      - name: Update issue
         uses: actions-cool/issues-helper@v3
         with:
-          actions: 'add-labels'
-          labels: 'valid'
-      - name: Remove labels
-        uses: actions-cool/issues-helper@v3
-        with:
-          actions: 'remove-labels'
-          labels: 'invalid'
-
-  update-label-as-invalid:
-    runs-on: ubuntu-latest
-    if: contains(github.event.issue.body, 'xxx') == false
-    steps:
-      - name: Add labels
-        uses: actions-cool/issues-helper@v3
-        with:
-          actions: 'add-labels'
-          labels: 'invalid'
-      - name: Remove labels
-        uses: actions-cool/issues-helper@v3
-        with:
-          actions: 'remove-labels'
-          labels: 'valid'
+          actions: 'update-issue'
+          title: '${{ github.event.issue.title }} - ${{ github.actor }}'
+          body: ${{ github.event.issue.title }}
+          update-mode: 'replace'
+          labels: 'application-form,${{ env.ISSUE_LABEL }}'
+          assignees: '${{ github.actor }}'
+          emoji: '+1'
   
   create-comment:
     runs-on: ubuntu-latest
@@ -53,6 +37,5 @@ jobs:
           actions: 'create-comment'
           body: |
             Hello @${{ github.event.issue.user.login }}. Add some comments.
-            你好 @${{ github.event.issue.user.login }}。巴拉巴拉。
           emoji: '+1,heart'
   
