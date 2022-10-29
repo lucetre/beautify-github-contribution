@@ -30,13 +30,21 @@ body:
       placeholder: "YOUR NAME"
     validations:
       required: true
- - type: textarea
+  - type: textarea
     id: contribution-graph
     attributes:
       label: Manually design your GitHub Contribution pattern.
       description: You can create contribution graph on your own. Mark your contribution as 1 or inaction as 0.
       value: |
-        123123
+        ```
+        01010101010101010101010101010101010101010101010101010
+        10101010101010101010101010101010101010101010101010101
+        01010101010101010101010101010101010101010101010101010
+        10101010101010101010101010101010101010101010101010101
+        01010101010101010101010101010101010101010101010101010
+        10101010101010101010101010101010101010101010101010101
+        01010101010101010101010101010101010101010101010101010
+        ```
     validations:
       required: false
 #   - type: checkboxes
