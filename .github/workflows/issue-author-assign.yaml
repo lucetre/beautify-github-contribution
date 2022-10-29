@@ -13,3 +13,27 @@ jobs:
         with:
           actions: 'add-assignees'
           assignees: ${{ github.actor }}
+
+  add-labels:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.body, 'xxx') == true
+    steps:
+      - name: Add labels
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'add-labels'
+          labels: 'valid'
+  
+  create-comment:
+    runs-on: ubuntu-latest
+    if: contains(github.event.label.name, 'application-form') == true
+    steps:
+      - name: Create comment
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'create-comment'
+          body: |
+            Hello @${{ github.event.issue.user.login }}. Add some comments.
+            你好 @${{ github.event.issue.user.login }}。巴拉巴拉。
+          emoji: '+1,heart'
+  
