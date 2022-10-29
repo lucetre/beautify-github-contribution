@@ -1,9 +1,7 @@
 name: Beautify my GitHub Contribution 
 
 on:
-  issues:
-    - opened
-    - assigned
+  issues: [opened, assigned]
   workflow_dispatch:
 
 jobs:
