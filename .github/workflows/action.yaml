@@ -2,18 +2,24 @@ name: Beautify my GitHub Contribution
 
 on:
   push:
+    branches:
+      - lucetre-patch-1
+  workflow_dispatch:
 
 jobs:
-  update-readme:
+  update-contribution:
     runs-on: ubuntu-latest
     steps:
+      - name: Get current date
+        run: echo "MY_DATE=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+        
       - name: Update GitHub Profile README
         uses: theboi/github-update-readme@v1.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.LINKEDART_GH_PAT }}
         with:
           header: "Hey, guys! 👋"
-          subhead: "Contribution log for beautifying your github contribution graph."
-          repoCount: 0
-          footer: "**Learn more about me at [ryanthe.com](https://www.ryanthe.com)!**"
+          subhead: "Contribution log for beautifying your GitHub contribution graph."
+          footer: ${{ github.actor }} - ${{ github.triggering_actor	}} - ${{ github.event_name }} - ${{ env.MY_DATE }}
           path: CONTRIBUTION.md
+          repoCount: 0
