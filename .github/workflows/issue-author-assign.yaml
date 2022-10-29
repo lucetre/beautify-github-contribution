@@ -1,4 +1,4 @@
-name: Issue Author Assignment
+name: Validate Application Form
 
 on:
   issues:
@@ -8,7 +8,7 @@ jobs:
   update-issue:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{github.event.issue.body}}"
+      - run: echo -e "${{ github.event.issue.body }}"
       - name: Set label as valid
         if: contains(github.event.issue.body, 'xxx') == true
         run: echo "ISSUE_LABEL=valid" >> $GITHUB_ENV
