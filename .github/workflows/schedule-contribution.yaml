@@ -1,6 +1,7 @@
 name: Beautify my GitHub Contribution 
 on:
   issues:
+    types: [ assigned ]
 
 jobs:
   create-cron-job:
