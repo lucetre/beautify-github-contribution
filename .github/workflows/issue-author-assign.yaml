@@ -26,7 +26,6 @@ jobs:
   
   create-comment:
     runs-on: ubuntu-latest
-    if: contains(github.event.label.name, 'application-form') == true
     steps:
       - name: Create comment
         uses: actions-cool/issues-helper@v3
