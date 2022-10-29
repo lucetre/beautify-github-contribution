@@ -1,1 +1,1 @@
-# prettier-github-contribution
+# Beautify my GitHub Contribution
