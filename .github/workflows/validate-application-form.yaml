@@ -62,6 +62,19 @@ jobs:
             Our bot will soon validate your form and provide preview via issue comments below.
           emoji: 'eyes,heart'
 
+      - uses: actions/checkout@v3
+        if: env.ISSUE_LABEL == 'valid'
+        
+      - uses: actions/setup-python@v4
+        if: env.ISSUE_LABEL == 'valid'
+
+      - name: Generate contribution graph preview
+        if: env.ISSUE_LABEL == 'valid'
+        run: |
+          python tools/create_contribution_md.py
+          cat tools/contribution/graph.md
+          echo CONTRIBUTION_GRAPH=$(cat tools/contribution/graph.md) >> $GITHUB_ENV
+
       - name: Valid comment
         if: env.ISSUE_LABEL == 'valid'
         uses: actions-cool/issues-helper@v3
@@ -70,6 +83,7 @@ jobs:
           body: |
             Awesome @${{ github.event.issue.user.login }}! Your application form has been correctly validated.
             Press above checkbox **Start your GitHub Contribution** to deploy.
+            ${{ env.CONTRIBUTION_GRAPH }}
           emoji: '+1,laugh,hooray'
 
       - name: Invalid comment
@@ -81,5 +95,3 @@ jobs:
             Uh-oh @${{ github.event.issue.user.login }},
             Looks like your application form is invalid. Please check it again.
           emoji: '-1,confused'
-
-  
