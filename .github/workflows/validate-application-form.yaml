@@ -37,7 +37,7 @@ jobs:
           body: |
             Hello @${{ github.event.issue.user.login }}. Add some comments.
           emoji: '+1,heart'
-      - run: echo ${{github.event.issue.type}}
+      - run: echo ${{toJson(github.event.issue)}}
       - name: Welcome comment
         if: github.event.issue.type == 'opened'
         uses: actions-cool/issues-helper@v3
