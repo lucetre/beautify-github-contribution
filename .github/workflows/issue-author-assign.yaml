@@ -1,4 +1,4 @@
-name: Issue Assignment
+name: Issue Author Assignment
 
 on:
   issues:
