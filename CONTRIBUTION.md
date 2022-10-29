@@ -1,6 +1,6 @@
 ## Hey, guys! 👋
 
-Contribution log for beautifying your github contribution graph.
+Contribution log for beautifying your GitHub contribution graph.
 
 ---
 
@@ -8,4 +8,4 @@ Contribution log for beautifying your github contribution graph.
 
 ---
 
-**Learn more about me at [ryanthe.com](https://www.ryanthe.com)!**
+lucetre - lucetre - workflow_dispatch - 202210290314
