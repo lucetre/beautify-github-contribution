@@ -1,0 +1,19 @@
+name: Beautify my GitHub Contribution 
+
+on:
+  push:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update GitHub Profile README
+        uses: theboi/github-update-readme@v1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          header: "Hey, guys! 👋"
+          subhead: "Contribution log for beautifying your github contribution graph."
+          repoCount: 0
+          footer: "**Learn more about me at [ryanthe.com](https://www.ryanthe.com)!**"
+          path: CONTRIBUTION.md
