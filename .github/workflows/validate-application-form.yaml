@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "${{ github.event.issue.body }}"
+          echo '${{ github.event.issue.body }}'
 
       - name: Lock issue
         uses: actions-cool/issues-helper@v3
@@ -77,13 +77,13 @@ jobs:
         if: env.ISSUE_LABEL == 'valid'
         run: |
           ISSUE_BODY=$(cat << EOF
-          "${{ github.event.issue.body }}"
+          '${{ github.event.issue.body }}'
           EOF
           )
           echo $ISSUE_BODY
           echo hello
 
-          echo -e "$ISSUE_BODY" | sed '/^$/d' | sed '1,/```/d' | sed '/```/,$d' >> tools/contribution/graph.txt
+          echo -e '$ISSUE_BODY' | sed '/^$/d' | sed '1,/```/d' | sed '/```/,$d' >> tools/contribution/graph.txt
           cat tools/contribution/graph.txt
 
           pip install numpy
