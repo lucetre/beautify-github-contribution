@@ -5,13 +5,26 @@ on:
     branches:
       - lucetre-patch-1
   workflow_dispatch:
+  issues:
+    - opened
+    - assigned
 
 jobs:
+  create-cron-job:
+    if: ${{ github.event.issue }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hello World
+        run: echo Hello World!
+      - run: |
+          echo "Issue title: ${{ github.event.issue.title }}"
+          echo "Issue body: ${{ github.event.issue.body }}"
+
   update-contribution:
     runs-on: ubuntu-latest
     steps:
       - name: Get current date
-        run: echo "MY_DATE=$(date +%Y-%m-%d-%H:%M:%s)" >> $GITHUB_ENV
+        run: echo "MY_DATE=$(date +%Y-%m-%d-%H:%M:%S)" >> $GITHUB_ENV
         
       - name: Update GitHub Profile README
         uses: theboi/github-update-readme@v1.0
