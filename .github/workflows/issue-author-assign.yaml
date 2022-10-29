@@ -2,7 +2,7 @@ name: Issue Author Assignment
 
 on:
   issues:
-    types: [ opened, edited ]
+    types: [ opened, edited, reopened, labeled, unlabeled ]
 
 jobs:
 
