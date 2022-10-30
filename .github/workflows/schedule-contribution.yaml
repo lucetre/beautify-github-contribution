@@ -1,32 +1,31 @@
 name: Beautify my GitHub Contribution 
 on:
-  issues:
-    types: [ assigned ]
+  push:
+  schedule:
+    - cron: '5 0 * * *'
 
 jobs:
-  create-cron-job:
-    if: ${{ github.event.issue }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Hello World
-        run: echo Hello World!
-      - run: |
-          echo "Issue title: ${{ github.event.issue.title }}"
-          echo "Issue body: ${{ github.event.issue.body }}"
-
-  update-contribution:
+  contribute:
     runs-on: ubuntu-latest
     steps:
       - name: Get current date
-        run: echo "MY_DATE=$(date +%Y-%m-%d-%H:%M:%S)" >> $GITHUB_ENV
+        run: |
+          date +%Y/%m/%d-%H:%M:%S
+          echo "TODAY=$(date +%Y/%m/%d)" >> $GITHUB_ENV
         
-      - name: Update GitHub Profile README
-        uses: theboi/github-update-readme@v1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.LINKEDART_GH_PAT }}
-        with:
-          header: "Hey, guys! 👋"
-          subhead: "Contribution log for beautifying your GitHub contribution graph."
-          footer: ${{ env.MY_DATE }} - ${{ github.actor }} - ${{ github.triggering_actor }} - ${{ github.event_name }}
-          path: CONTRIBUTION.md
-          repoCount: 0
+      - uses: actions/checkout@v3
+
+      - run: |
+          cat "scheduler/${{ env.TODAY }}/CONTRIBUTORS"
+          tree scheduler
+
+      # - name: Update GitHub Profile README
+      #   uses: theboi/github-update-readme@v1.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.LINKEDART_GH_PAT }}
+      #   with:
+      #     header: "Hey, guys! 👋"
+      #     subhead: "Contribution log for beautifying your GitHub contribution graph."
+      #     footer: ${{ env.TODAY }} - ${{ github.actor }} - ${{ github.triggering_actor }} - ${{ github.event_name }}
+      #     path: CONTRIBUTION.md
+      #     repoCount: 0
