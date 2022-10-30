@@ -91,7 +91,7 @@ jobs:
           echo "$PREVIEW" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
-          CONTRIBUTION_GRAPH=$(cat tools/contribution/graph.md)
+          CONTRIBUTION_GRAPH=$(cat tools/contribution/deploy.md)
           echo "CONTRIBUTION_GRAPH<<EOF" >> $GITHUB_ENV
           echo "$CONTRIBUTION_GRAPH" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
