@@ -1,4 +1,4 @@
-# ISSUE_BODY=$(cat tools/contribution/sample-issue.md)
+ISSUE_BODY=$(cat tools/contribution/sample-issue.md)
 
 # #echo -e "$ISSUE_BODY" | sed '/^$/d' | sed '/### Which/,$d' | sed '/### Customize/,$!d'
 # CUSTOM=$(echo -e "$ISSUE_BODY" | sed '/^$/d' | sed '/### Which/,$d' | sed '1,/|--/d')
@@ -13,8 +13,10 @@
 # # echo $PATTERN
 # # echo $CODE_OF_CONDUCT
 
-
 # contribution_graph=`cat tools/contribution/graph.md | sed '$ ! s/$/\\n/' | tr -d '\n'`
 # echo "$contribution_graph"
 
-cat tools/contribution/preview.md | sed -r 's/\:white_circle\:/⚪/g' | sed -r 's/\:green_circle\:/🟢/g'
+# cat tools/contribution/preview.md | sed -r 's/\:white_circle\:/⚪/g' | sed -r 's/\:green_circle\:/🟢/g'
+
+DEPLOY=$(echo "$ISSUE_BODY" | grep 'Let my GitHub bot' | grep -oP '(?<=\[).*?(?=\])')
+[[ ! -z "${DEPLOY// /}" ]] && echo "Deploy"

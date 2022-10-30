@@ -21,4 +21,4 @@ xxx
 
 ### Start my GitHub Contribution
 
-- [ ] Let my GitHub bot start to contribute beautifully from now on.
+- [x  ] Let my GitHub bot start to contribute beautifully from now on.

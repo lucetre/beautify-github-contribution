@@ -21,7 +21,10 @@ jobs:
 
       - name: Set label as valid
         if: contains(github.event.issue.body, 'xxx') == true
-        run: echo "ISSUE_LABEL=valid" >> $GITHUB_ENV
+        run: |
+          echo "ISSUE_LABEL=valid" >> $GITHUB_ENV
+          DEPLOY=$(echo "$ISSUE_BODY" | grep 'Let my GitHub bot' | grep -oP '(?<=\[).*?(?=\])')
+          [[ ! -z "${DEPLOY// /}" ]] && echo "ISSUE_LABEL=valid,shipped-to-deploy" >> $GITHUB_ENV
         
       - name: Set label as invalid
         if: contains(github.event.issue.body, 'xxx') == false
@@ -63,15 +66,15 @@ jobs:
           emoji: 'eyes,heart'
 
       - uses: actions/checkout@v3
-        if: env.ISSUE_LABEL == 'valid'
+        if: contains(env.ISSUE_LABEL, 'valid') == true
         
       - uses: actions/setup-python@v4
-        if: env.ISSUE_LABEL == 'valid'
+        if: contains(env.ISSUE_LABEL, 'valid') == true
         with:
           python-version: '3.9'
 
       - name: Generate contribution graph preview
-        if: env.ISSUE_LABEL == 'valid'
+        if: contains(env.ISSUE_LABEL, 'valid') == true
         run: |
           echo '${{ github.event.issue.body }}' | sed '/^$/d' | sed '1,/```/d' | sed '/```/,$d' > tools/contribution/graph.txt
           cat tools/contribution/graph.txt
@@ -80,14 +83,19 @@ jobs:
           python tools/create_contribution_md.py
 
           cat tools/contribution/preview.md | sed -r 's/\:white_circle\:/⚪/g' | sed -r 's/\:green_circle\:/🟢/g'
-          CONTRIBUTION_GRAPH=$(cat tools/contribution/preview.md | sed -r 's/\:white_circle\:/⚪/g' | sed -r 's/\:green_circle\:/🟢/g')
+          PREVIEW=$(cat tools/contribution/preview.md | sed -r 's/\:white_circle\:/⚪/g' | sed -r 's/\:green_circle\:/🟢/g')
 
+          echo "PREVIEW<<EOF" >> $GITHUB_ENV
+          echo "$PREVIEW" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+          CONTRIBUTION_GRAPH=$(cat tools/contribution/graph.md)
           echo "CONTRIBUTION_GRAPH<<EOF" >> $GITHUB_ENV
           echo "$CONTRIBUTION_GRAPH" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
       - name: Valid comment
-        if: env.ISSUE_LABEL == 'valid'
+        if: contains(env.ISSUE_LABEL, 'valid') == true
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'create-comment'
@@ -95,12 +103,12 @@ jobs:
             Awesome @${{ github.event.issue.user.login }}! Your application form has been correctly validated.
             Press above checkbox **Start my GitHub Contribution** to deploy.
             ```
-            ${{ env.CONTRIBUTION_GRAPH }}
+            ${{ env.PREVIEW }}
             ```
           emoji: '+1,laugh,hooray'
 
       - name: Invalid comment
-        if: env.ISSUE_LABEL == 'invalid'
+        if: contains(env.ISSUE_LABEL, 'valid') == false
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'create-comment'
@@ -108,3 +116,14 @@ jobs:
             Uh-oh @${{ github.event.issue.user.login }},
             Looks like your application form is invalid. Please check it again.
           emoji: '-1,confused'
+
+      - name: Valid comment
+        if: contains(env.ISSUE_LABEL, 'shipped-to-deploy') == true
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'create-comment'
+          body: |
+            Congratulations @${{ github.event.issue.user.login }}!
+            Your contribution graph has been shipped to deploy.
+            ${{ env.CONTRIBUTION_GRAPH }}
+          emoji: 'rocket'
