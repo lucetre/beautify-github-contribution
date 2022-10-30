@@ -26,7 +26,7 @@ if (np.array([len(week) for week in contribution_graph]) == num_of_weeks).all() 
 
 with open("tools/contribution/deploy.md", "w") as f:
     for i in range(1, num_of_weeks+1):
-        f.write(f'|{i:2d}')
+        f.write(f'|[{i:2d}](## 2022-10-30 ~ 2022-11-12)')
     f.write('|\n')
 
     for i in range(1, num_of_weeks+1):
@@ -36,9 +36,9 @@ with open("tools/contribution/deploy.md", "w") as f:
     for i in range(DAYS_IN_A_WEEK):
         for j in range(num_of_weeks):
             if contribution_graph[i][j] == '0':
-                f.write('|:white_circle:')
+                f.write('|[:white_circle:](## 2022-10-30)')
             if contribution_graph[i][j] == '1':
-                f.write('|:green_circle:')
+                f.write('|[:green_circle:](## 2022-10-30)')
         f.write('|\n')
 
 with open("tools/contribution/preview.md", "w") as f:

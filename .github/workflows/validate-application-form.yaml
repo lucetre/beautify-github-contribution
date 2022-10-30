@@ -128,16 +128,6 @@ jobs:
             Congratulations @${{ github.event.issue.user.login }}! Your contribution graph has been shipped to deploy.
             ${{ env.CONTRIBUTION_GRAPH }}
           emoji: 'rocket,heart'
-
-      - name: Valid comment
-        if: contains(env.ISSUE_LABEL, 'shipped-to-deploy') == true
-        uses: actions-cool/issues-helper@v3
-        with:
-          actions: 'create-comment'
-          body: |
-            Congratulations @${{ github.event.issue.user.login }}! Your contribution graph has been shipped to deploy.
-            ${{ env.CONTRIBUTION_GRAPH }}
-          emoji: 'rocket,heart'
       
       - name: Close issue
         if: contains(env.ISSUE_LABEL, 'shipped-to-deploy') == true
