@@ -31,11 +31,11 @@ jobs:
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'update-issue'
-          title: 'GitHub Contribution Graph Application Form - ${{ github.actor }}'
+          title: 'GitHub Contribution Graph Application Form - `${{ github.event.issue.user.login }}`'
           body: ${{ github.event.issue.body }}
           update-mode: 'replace'
           labels: 'application-form,${{ env.ISSUE_LABEL }}'
-          assignees: '${{ github.actor }}'
+          assignees: '${{ github.event.issue.user.login }}'
           emoji: 'rocket'
 
     outputs:
