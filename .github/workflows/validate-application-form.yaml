@@ -2,7 +2,7 @@ name: Validate Application Form
 
 on:
   issues:
-    types: [ opened, edited, reopened, unassigned ]
+    types: [ opened, edited ]
 
 jobs:
   validate-issue:
@@ -23,8 +23,8 @@ jobs:
         if: contains(github.event.issue.body, 'xxx') == true
         run: |
           echo "ISSUE_LABEL=valid" >> $GITHUB_ENV
-          DEPLOY=$(echo '${{ github.event.issue.body }}' | grep 'Let my GitHub bot' | grep -oP '(?<=\[).*?(?=\])')
-          [[ ! -z "${DEPLOY// /}" ]] && (echo "ISSUE_LABEL=valid,shipped-to-deploy" >> $GITHUB_ENV)
+          # DEPLOY=$(echo '${{ github.event.issue.body }}' | grep 'Let my GitHub bot' | grep -oP '(?<=\[).*?(?=\])')
+          # [[ ! -z "${DEPLOY// /}" ]] && (echo "ISSUE_LABEL=valid,shipped-to-deploy" >> $GITHUB_ENV)
         
       - name: Set label as invalid
         if: contains(github.event.issue.body, 'xxx') == false
@@ -142,4 +142,4 @@ jobs:
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'close-issue'
-          issue-number: ${{ github.event.issue.number }}
+          close-reason: completed
