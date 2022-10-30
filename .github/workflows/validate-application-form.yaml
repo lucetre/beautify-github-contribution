@@ -146,5 +146,5 @@ jobs:
 
       - uses: EndBug/add-and-commit@v9
         with:
-          message: '[Issue ${{ github.event.issue.number }}] Schdule contribution - `${{ github.event.issue.user.login }}`'
+          message: '[Issue #${{ github.event.issue.number }}] Schdule contribution for `${{ github.event.issue.user.login }}`'
           add: 'scheduler --force'
