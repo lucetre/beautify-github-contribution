@@ -66,15 +66,15 @@ jobs:
           emoji: 'eyes,heart'
 
       - uses: actions/checkout@v3
-        if: contains(env.ISSUE_LABEL, 'valid') == true
+        if: contains(env.ISSUE_LABEL, 'invalid') == false
         
       - uses: actions/setup-python@v4
-        if: contains(env.ISSUE_LABEL, 'valid') == true
+        if: contains(env.ISSUE_LABEL, 'invalid') == false
         with:
           python-version: '3.9'
 
       - name: Generate contribution graph preview
-        if: contains(env.ISSUE_LABEL, 'valid') == true
+        if: contains(env.ISSUE_LABEL, 'invalid') == false
         run: |
           echo '${{ github.event.issue.body }}' | sed '/^$/d' | sed '1,/```/d' | sed '/```/,$d' > tools/contribution/graph.txt
           cat tools/contribution/graph.txt
@@ -95,7 +95,7 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
 
       - name: Valid comment
-        if: contains(env.ISSUE_LABEL, 'valid') == true
+        if: contains(env.ISSUE_LABEL, 'invalid') == false
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'create-comment'
@@ -108,7 +108,7 @@ jobs:
           emoji: '+1,laugh,hooray'
 
       - name: Invalid comment
-        if: contains(env.ISSUE_LABEL, 'valid') == false
+        if: contains(env.ISSUE_LABEL, 'invalid') == true
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'create-comment'
