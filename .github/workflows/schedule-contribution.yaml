@@ -19,10 +19,12 @@ jobs:
           CONTRIBUTOR=linkedart-snu
           str=$(cat "scheduler/${{ env.TODAY }}/CONTRIBUTORS" | grep $CONTRIBUTOR | tr -d '[:space:]')
 
+          echo "$str $CONTRIBUTOR"
           if [[ $str == $CONTRIBUTOR ]]; then
-            echo CONTRIBUTION_TRIGGER=true >> $GITHUB_ENV
+            echo "Trigger"
+            echo "CONTRIBUTION_TRIGGER=true" >> $GITHUB_ENV
           else
-            echo CONTRIBUTION_TRIGGER=false >> $GITHUB_ENV
+            echo "CONTRIBUTION_TRIGGER=false" >> $GITHUB_ENV
           fi
 
       - name: Update GitHub Profile README
