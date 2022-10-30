@@ -1,7 +1,9 @@
 # python tools/create_contribution_md.py
 import numpy as np
 import sys
+import datetime
 
+SUNDAY_WEEKDAY = 6
 DAYS_IN_A_WEEK = 7
 
 f = open("tools/contribution/graph.txt", "r")
@@ -24,9 +26,15 @@ num_of_weeks = len(contribution_graph[0])
 if (np.array([len(week) for week in contribution_graph]) == num_of_weeks).all() != True:
     sys.exit('The num_of_weeks not matches to other neighbor weekdays.')
 
+today = datetime.date.today()
+start_date = today + \
+    datetime.timedelta((SUNDAY_WEEKDAY-today.weekday()-1) % DAYS_IN_A_WEEK+1)
+
 with open("tools/contribution/deploy.md", "w") as f:
     for i in range(1, num_of_weeks+1):
-        f.write(f'|[{i:2d}](## 2022-10-30 ~ 2022-11-12)')
+        end_date = start_date + datetime.timedelta((i+1)*DAYS_IN_A_WEEK-1)
+        f.write(
+            f'|[{i:2d}](## {start_date.strftime("%b %d, %Y")} ~ {end_date.strftime("%b %d, %Y")})')
     f.write('|\n')
 
     for i in range(1, num_of_weeks+1):
@@ -35,10 +43,13 @@ with open("tools/contribution/deploy.md", "w") as f:
 
     for i in range(DAYS_IN_A_WEEK):
         for j in range(num_of_weeks):
+            curr_date = start_date + datetime.timedelta(j*DAYS_IN_A_WEEK + i)
             if contribution_graph[i][j] == '0':
-                f.write('|[:white_circle:](## 2022-10-30)')
+                f.write(
+                    f'|[:white_circle:](## {curr_date.strftime("%b %d, %Y")})')
             if contribution_graph[i][j] == '1':
-                f.write('|[:green_circle:](## 2022-10-30)')
+                f.write(
+                    f'|[:green_circle:](## {curr_date.strftime("%b %d, %Y")})')
         f.write('|\n')
 
 with open("tools/contribution/preview.md", "w") as f:
