@@ -46,10 +46,10 @@ with open("tools/contribution/deploy.md", "w") as f:
             curr_date = start_date + datetime.timedelta(j*DAYS_IN_A_WEEK + i)
             if contribution_graph[i][j] == '0':
                 f.write(
-                    f'|[:white_circle:](## {curr_date.strftime("%b %d, %Y")})')
+                    f'|[:white_circle:](## "{curr_date.strftime("%b %d, %Y")})"')
             if contribution_graph[i][j] == '1':
                 f.write(
-                    f'|[:green_circle:](## {curr_date.strftime("%b %d, %Y")})')
+                    f'|[:green_circle:](## "{curr_date.strftime("%b %d, %Y")})"')
         f.write('|\n')
 
 with open("tools/contribution/preview.md", "w") as f:
