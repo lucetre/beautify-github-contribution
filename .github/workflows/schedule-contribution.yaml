@@ -29,7 +29,7 @@ jobs:
 
       - name: Update GitHub Profile README
         uses: theboi/github-update-readme@v1.0
-        if: env.CONTRIBUTION_TRIGGER == true
+        if: env.CONTRIBUTION_TRIGGER == "true"
         env:
           GITHUB_TOKEN: ${{ secrets.LINKEDART_GH_PAT }}
         with:
