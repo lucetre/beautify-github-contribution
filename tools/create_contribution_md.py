@@ -27,12 +27,13 @@ if (np.array([len(week) for week in contribution_graph]) == num_of_weeks).all() 
     sys.exit('The num_of_weeks not matches to other neighbor weekdays.')
 
 today = datetime.date.today()
-start_date = today + \
+init_date = today + \
     datetime.timedelta((SUNDAY_WEEKDAY-today.weekday()-1) % DAYS_IN_A_WEEK+1)
 
 with open("tools/contribution/deploy.md", "w") as f:
     for i in range(1, num_of_weeks+1):
-        end_date = start_date + datetime.timedelta((i+1)*DAYS_IN_A_WEEK-1)
+        start_date = init_date + datetime.timedelta(i*DAYS_IN_A_WEEK)
+        end_date = init_date + datetime.timedelta((i+1)*DAYS_IN_A_WEEK-1)
         f.write(
             f'|[{i:2d}](## {start_date.strftime("%b %d, %Y")} ~ {end_date.strftime("%b %d, %Y")})')
     f.write('|\n')
@@ -43,7 +44,7 @@ with open("tools/contribution/deploy.md", "w") as f:
 
     for i in range(DAYS_IN_A_WEEK):
         for j in range(num_of_weeks):
-            curr_date = start_date + datetime.timedelta(j*DAYS_IN_A_WEEK + i)
+            curr_date = init_date + datetime.timedelta(j*DAYS_IN_A_WEEK + i)
             if contribution_graph[i][j] == '0':
                 f.write(
                     f'|[:white_circle:](## "{curr_date.strftime("%b %d, %Y")})"')
