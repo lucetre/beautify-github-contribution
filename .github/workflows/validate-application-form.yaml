@@ -23,8 +23,10 @@ jobs:
         if: contains(github.event.issue.body, 'xxx') == true
         run: |
           echo "ISSUE_LABEL=valid" >> $GITHUB_ENV
-          # DEPLOY=$(echo '${{ github.event.issue.body }}' | grep 'Let my GitHub bot' | grep -oP '(?<=\[).*?(?=\])')
-          # [[ ! -z "${DEPLOY// /}" ]] && (echo "ISSUE_LABEL=valid,shipped-to-deploy" >> $GITHUB_ENV)
+          echo '${{ github.event.issue.body }}' | grep 'Let my GitHub bot' 
+          echo '${{ github.event.issue.body }}' | grep 'Let my GitHub bot' | grep -oP '(?<=\[).*?(?=\])'
+          DEPLOY=$(echo '${{ github.event.issue.body }}' | grep 'Let my GitHub bot' | grep -oP '(?<=\[).*?(?=\])')
+          [[ ! -z "${DEPLOY// /}" ]] && (echo "ISSUE_LABEL=valid,shipped-to-deploy" >> $GITHUB_ENV)
         
       - name: Set label as invalid
         if: contains(github.event.issue.body, 'xxx') == false
