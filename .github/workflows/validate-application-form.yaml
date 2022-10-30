@@ -140,7 +140,11 @@ jobs:
         if: contains(env.ISSUE_LABEL, 'shipped-to-deploy') == true
         run: |
           python tools/schedule_contribution.py
-          ls -R scheduler
           tree scheduler
         env:
           CONTRIBUTOR: ${{ github.event.issue.user.login }}
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          message: '[Issue ${{ github.event.issue.number }}] Schdule contribution - `${{ github.event.issue.user.login }}`'
+          add: 'scheduler --force'
