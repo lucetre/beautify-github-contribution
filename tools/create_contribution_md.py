@@ -35,7 +35,7 @@ with open("tools/contribution/deploy.md", "w") as f:
         start_date = init_date + datetime.timedelta(i*DAYS_IN_A_WEEK)
         end_date = init_date + datetime.timedelta((i+1)*DAYS_IN_A_WEEK-1)
         f.write(
-            f'|[{i:2d}]({start_date.strftime("%b %d, %Y")} ~ {end_date.strftime("%b %d, %Y")})')
+            f'|[{i}] {start_date.strftime("%b %d, %Y")} ~ {end_date.strftime("%b %d, %Y")}')
     f.write('|\n')
 
     for i in range(1, num_of_weeks+1):
