@@ -2,6 +2,7 @@
 import numpy as np
 import sys
 import datetime
+import pickle
 
 SUNDAY_WEEKDAY = 6
 DAYS_IN_A_WEEK = 7
@@ -61,3 +62,9 @@ with open("tools/contribution/preview.md", "w") as f:
             if contribution_graph[i][j] == '1':
                 f.write(':green_circle:')
         f.write('\n')
+
+with open("tools/contribution/data.pkl", "wb") as f:
+    pickle.dump({
+        "contribution_graph": contribution_graph,
+        "init_date": init_date
+    }, f)

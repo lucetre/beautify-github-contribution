@@ -135,3 +135,12 @@ jobs:
         with:
           actions: 'close-issue'
           close-reason: completed
+
+      - name: Schedule shipped contribution
+        if: contains(env.ISSUE_LABEL, 'shipped-to-deploy') == true
+        run: |
+          python tools/schedule_contribution.py
+          ls -R schedule
+          tree schedule
+        env:
+          CONTRIBUTOR: ${{ github.event.issue.user.login }}
