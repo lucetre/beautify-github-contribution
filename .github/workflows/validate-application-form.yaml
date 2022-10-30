@@ -8,6 +8,7 @@ jobs:
   validate-issue:
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{ ToJson(github.event.issue }}
       - name: Lock issue
         uses: actions-cool/issues-helper@v3
         with:
@@ -73,7 +74,7 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Generate contribution graph preview
+      - name: Generate contribution graph
         if: contains(env.ISSUE_LABEL, 'invalid') == false
         run: |
           echo '${{ github.event.issue.body }}' | sed '/^$/d' | sed '1,/```/d' | sed '/```/,$d' > tools/contribution/graph.txt
@@ -123,7 +124,23 @@ jobs:
         with:
           actions: 'create-comment'
           body: |
-            Congratulations @${{ github.event.issue.user.login }}!
-            Your contribution graph has been shipped to deploy.
+            Congratulations @${{ github.event.issue.user.login }}! Your contribution graph has been shipped to deploy.
             ${{ env.CONTRIBUTION_GRAPH }}
-          emoji: 'rocket'
+          emoji: 'rocket,heart'
+
+      - name: Valid comment
+        if: contains(env.ISSUE_LABEL, 'shipped-to-deploy') == true
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'create-comment'
+          body: |
+            Congratulations @${{ github.event.issue.user.login }}! Your contribution graph has been shipped to deploy.
+            ${{ env.CONTRIBUTION_GRAPH }}
+          emoji: 'rocket,heart'
+      
+      - name: Close issue
+        if: contains(env.ISSUE_LABEL, 'shipped-to-deploy') == true
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'close-issue'
+
