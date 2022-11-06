@@ -25,8 +25,8 @@ jobs:
           #   echo "CONTRIBUTOR=$contributor"
           #   echo ${{ secrets[format('USER_PAT_{0}', env.CONTRIBUTOR)] }} | sed 's/./& /g'
           # done <scheduler/${{ env.TODAY }}/CONTRIBUTORS
-          # CONTRIBUTORS=$(cat scheduler/${{ env.TODAY }}/CONTRIBUTORS)
-          echo contributors="$(cat scheduler/${{ env.TODAY }}/CONTRIBUTORS)" >> $GITHUB_OUTPUT
+          CONTRIBUTORS=($(cat scheduler/${{ env.TODAY }}/CONTRIBUTORS))
+          echo contributors=$CONTRIBUTORS >>$GITHUB_OUTPUT
 
       - run: |
           CONTRIBUTOR=linkedart-snu
