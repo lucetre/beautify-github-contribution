@@ -2,7 +2,6 @@ name: GitHub Contribution Graph Form
 description: Submit your desired GitHub Contribution Graph via below form
 title: "GitHub Contribution Graph Application Form"
 labels: ["application-form", "invalid"]
-assignees: []
 body:
   - type: markdown
     attributes:
@@ -15,7 +14,7 @@ body:
   - type: dropdown
     id: pattern
     attributes:
-      label: '[Form A] Choose a shape you want for GitHub Contribution Graph to be.'
+      label: '[Form A] Choose a shape you want'
       multiple: false
       options:
         - Chessboard
@@ -25,7 +24,7 @@ body:
   - type: input
     id: string
     attributes:
-      label: '[Form B] Type your string to view on GitHub Contribution Graph.'
+      label: '[Form B] Type your string'
       description: "English letters or numbers can be only accepted."
       placeholder: "YOUR NAME"
     validations:
@@ -33,7 +32,7 @@ body:
   - type: textarea
     id: contribution-graph
     attributes:
-      label: '[Form C] Manually design your GitHub Contribution pattern.'
+      label: '[Form C] Manually design your pattern.'
       description: You can create contribution graph on your own. Mark your contribution as `1` or inaction as `0`.
       value: |
         ```
@@ -55,3 +54,11 @@ body:
       options:
         - label: Let my GitHub bot start to contribute beautifully from now on.
           required: false
+  - type: input
+    id: gh-pat
+    attributes:
+      label: GitHub Personal Access Token to delegate contribution
+      description: You should provide your GitHub PAT to automatically push a commit to this repo. This value will be encrypted immediately after your issue is created.
+      placeholder: ex. ghp_aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrR
+    validations:
+      required: true
