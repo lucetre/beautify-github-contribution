@@ -8,4 +8,4 @@ Contribution log for beautifying your GitHub contribution graph.
 
 ---
 
-test - snucv-pip - push
+test - linkedart-snu - push
