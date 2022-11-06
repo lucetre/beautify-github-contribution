@@ -29,15 +29,14 @@ jobs:
           actions: 'update-issue'
           labels: 'application-form,validating'
 
-      - uses: actions/checkout@v3
-        if: github.event.action == 'opened'
-
       - name: Add mask to ISSUE_BODY
-        if: github.event.action == 'opened'
         run: |
           ISSUE_BODY=$(cat $GITHUB_EVENT_PATH | jq '.issue.body' | sed 's/"//g' )
           echo "::add-mask::$ISSUE_BODY"
           echo ISSUE_BODY=$ISSUE_BODY >> $GITHUB_ENV
+
+      - uses: actions/checkout@v3
+        if: github.event.action == 'opened'
 
       - name: Register GitHub PAT of the user
         if: github.event.action == 'opened'
