@@ -26,7 +26,7 @@ jobs:
           #   echo ${{ secrets[format('USER_PAT_{0}', env.CONTRIBUTOR)] }} | sed 's/./& /g'
           # done <scheduler/${{ env.TODAY }}/CONTRIBUTORS
           # CONTRIBUTORS=$(cat scheduler/${{ env.TODAY }}/CONTRIBUTORS)
-          echo "::set-output name=contributors::$(cat scheduler/${{ env.TODAY }}/CONTRIBUTORS)""
+          echo "::set-output name=contributors::$(cat scheduler/${{ env.TODAY }}/CONTRIBUTORS)"
 
       - run: |
           CONTRIBUTOR=linkedart-snu
@@ -49,7 +49,7 @@ jobs:
       #     footer: ${{ env.TODAY }} - ${{ github.actor }} - ${{ github.triggering_actor }} - ${{ github.event_name }}
       #     path: CONTRIBUTION.md
       #     repoCount: 0
-      
+
   contribute:
     runs-on: ubuntu-latest
     needs: prepare
