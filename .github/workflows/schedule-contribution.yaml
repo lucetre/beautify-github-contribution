@@ -21,8 +21,8 @@ jobs:
       - id: get-contributor-list
         run: |
           CONTRIBUTORS=($(cat scheduler/${{ env.TODAY }}/CONTRIBUTORS))
-          printf '%s\n' "${CONTRIBUTORS[@]}" | jq -R . | jq -s -o .
-          echo contributors=$(printf '%s\n' "${CONTRIBUTORS[@]}" | jq -R . | jq -s -o .) >>$GITHUB_OUTPUT
+          printf '%s\n' "${CONTRIBUTORS[@]}" | jq -R . | jq -s .
+          echo contributors=$(printf '%s\n' "${CONTRIBUTORS[@]}" | jq -R . | jq -s .) >>$GITHUB_OUTPUT
 
       - run: |
           CONTRIBUTOR=linkedart-snu
