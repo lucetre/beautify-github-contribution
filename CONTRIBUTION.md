@@ -8,4 +8,4 @@ Contribution log for beautifying your GitHub contribution graph.
 
 ---
 
-test - lucetre - push
+test - snucv-pip - push
