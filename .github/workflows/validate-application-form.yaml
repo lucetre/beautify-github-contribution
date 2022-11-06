@@ -19,9 +19,11 @@ jobs:
           actions: 'update-issue'
           labels: 'application-form,validating'
 
+      # PAT to be encrypted
       - name: Register GitHub PAT of the user
         run: |
-          USER_GH_PAT=`echo '${{ github.event.issue.body }}' | sed '/^$/d' | sed '1,/GitHub PAT/d' | sed '/Start my/,$d'``
+          USER_PAT=`echo '${{ github.event.issue.body }}' | sed '/^$/d' | sed '1,/GitHub PAT/d' | sed '/Start my/,$d'``
+          gh workflow run register-github-secrets.yaml -f SECRET_NAME=USER_PAT_${{ github.event.issue.user.login }} -f SECRET_VALUE=$USER_PAT
 
       - name: Set label as valid
         if: contains(github.event.issue.body, 'xxx') == true
