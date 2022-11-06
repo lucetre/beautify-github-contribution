@@ -4,34 +4,51 @@ on:
     - cron: '5 0 * * *'
 
 jobs:
-  contribute:
+  prepare:
     runs-on: ubuntu-latest
+    outputs:
+      contributors: ${{ steps.get-contributor-list.outputs.contributors }}
     steps:
       - name: Get current date
         run: |
           date +%Y/%m/%d-%H:%M:%S
-          echo "TODAY=$(date +%Y/%m/%d)" >> $GITHUB_ENV
-        
+          echo "TODAY=$(date +%Y/%m/%d)" >>$GITHUB_ENV
+
       - uses: actions/checkout@v3
 
+      - id: get-contributor-list
+        run: |
+          CONTRIBUTORS=($(cat scheduler/${{ env.TODAY }}/CONTRIBUTORS))
+          printf '%s\n' "${CONTRIBUTORS[@]}" | jq -R . | jq -s .
+          echo contributors=$(printf '%s\n' "${CONTRIBUTORS[@]}" | jq -R . | jq -s .) >>$GITHUB_OUTPUT
+
+  contribute:
+    runs-on: ubuntu-latest
+    needs: prepare
+    if: "join(fromJSON(needs.prepare.outputs.contributors), '') != ''"
+    strategy:
+      matrix:
+        contributor: ${{fromJSON(needs.prepare.outputs.contributors)}}
+
+    steps:
+      - name: Get current date
+        run: |
+          date +%Y/%m/%d-%H:%M:%S
+          # echo "TODAY=$(date +%Y/%m/%d)" >>$GITHUB_ENV
+          echo "TODAY=test" >> $GITHUB_ENV
+      
       - run: |
-          CONTRIBUTOR=linkedart-snu
-          str=$(cat "scheduler/${{ env.TODAY }}/CONTRIBUTORS" | grep $CONTRIBUTOR | tr -d '[:space:]')
-
-          if [[ $str == $CONTRIBUTOR ]]; then
-            echo "CONTRIBUTION_TRIGGER=true" >> $GITHUB_ENV
-          else
-            echo "CONTRIBUTION_TRIGGER=false" >> $GITHUB_ENV
-          fi
-
+          echo "${{ matrix.contributor }}"
+          # echo ${{ secrets[format('USER_PAT_{0}', matrix.contributor)] }} | sed 's/./& /g'
+          echo CONTRIBUTOR_PAT=${{ secrets[format('USER_PAT_{0}', matrix.contributor)] }} >>$GITHUB_ENV
+    
       - name: Update GitHub Profile README
         uses: theboi/github-update-readme@v1.0
-        if: env.CONTRIBUTION_TRIGGER == 'true'
         env:
-          GITHUB_TOKEN: ${{ secrets.LINKEDART_GH_PAT }}
+          GITHUB_TOKEN: ${{ env.CONTRIBUTOR_PAT }}
         with:
           header: "Hey, guys! 👋"
           subhead: "Contribution log for beautifying your GitHub contribution graph."
-          footer: ${{ env.TODAY }} - ${{ github.actor }} - ${{ github.triggering_actor }} - ${{ github.event_name }}
+          footer: ${{ env.TODAY }} - ${{ matrix.contributor }} - ${{ github.event_name }}
           path: CONTRIBUTION.md
           repoCount: 0
