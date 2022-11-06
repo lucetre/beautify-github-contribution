@@ -33,7 +33,7 @@ jobs:
       - name: Register GitHub PAT of the user
         if: github.event.action == 'opened'
         run: |
-          USER_PAT=$(echo =e "${{ env.ISSUE_BODY }}" | sed '/^$/d' | sed '1,/GitHub PAT/d' | sed '/Start my/,$d')
+          USER_PAT=$(echo -e "${{ env.ISSUE_BODY }}" | sed '/^$/d' | sed '1,/GitHub PAT/d' | sed '/Start my/,$d')
           echo $USER_PAT
           gh workflow run register-github-secrets.yaml -f SECRET_NAME=USER_PAT_${{ github.event.issue.user.login }} -f SECRET_VALUE=$USER_PAT
         env:
