@@ -19,8 +19,9 @@ jobs:
           actions: 'update-issue'
           labels: 'application-form,validating'
 
-      - run: |
-          echo '${{ github.event.issue.body }}' | sed '/^$/d' | sed '1,/GitHub PAT/d' | sed '/Start my/,$d'
+      - name: Register GitHub PAT of the user
+        run: |
+          USER_GH_PAT=`echo '${{ github.event.issue.body }}' | sed '/^$/d' | sed '1,/GitHub PAT/d' | sed '/Start my/,$d'``
 
       - name: Set label as valid
         if: contains(github.event.issue.body, 'xxx') == true
@@ -149,6 +150,7 @@ jobs:
           CONTRIBUTOR: ${{ github.event.issue.user.login }}
 
       - uses: EndBug/add-and-commit@v9
+        if: contains(env.ISSUE_LABEL, 'shipped-to-deploy') == true
         with:
           default_author: github_actions
           message: '[Issue #${{ github.event.issue.number }}] Schedule contribution for `${{ github.event.issue.user.login }}`'
