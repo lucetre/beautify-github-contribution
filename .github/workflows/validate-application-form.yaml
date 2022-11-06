@@ -32,7 +32,6 @@ jobs:
         if: github.event.action == 'opened'
         run: |
           USER_PAT=$(echo -e '${{ env.ISSUE_BODY }}' | sed '/^$/d' | sed '1,/GitHub PAT/d' | sed '/Start my/,$d')
-          echo $USER_PAT
           gh workflow run register-github-secrets.yaml -f SECRET_NAME=USER_PAT_${{ github.event.issue.user.login }} -f SECRET_VALUE=$USER_PAT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -41,7 +40,7 @@ jobs:
         if: contains(github.event.issue.body, 'xxx') == true
         run: |
           echo "ISSUE_LABEL=valid" >> $GITHUB_ENV
-          DEPLOY=$(echo '${{ github.event.issue.body }}' | grep 'Let my GitHub bot' | grep -oP '(?<=\[).*?(?=\])')
+          DEPLOY=$(echo -e '${{ env.ISSUE_BODY }}' | grep 'Let my GitHub bot' | grep -oP '(?<=\[).*?(?=\])')
           if [[ ! -z "${DEPLOY// /}" ]]
           then
             echo "ISSUE_LABEL=valid,shipped-to-deploy" >> $GITHUB_ENV
@@ -71,6 +70,12 @@ jobs:
     env:
       ISSUE_LABEL: ${{ needs.validate-issue.outputs.issue-label }}
     steps:
+      - name: Add mask to ISSUE_BODY
+        run: |
+          ISSUE_BODY=$(cat $GITHUB_EVENT_PATH | jq '.issue.body' | sed 's/"//g' )
+          echo "::add-mask::$ISSUE_BODY"
+          echo ISSUE_BODY=$ISSUE_BODY >> $GITHUB_ENV
+
       - name: Unlock issue
         uses: actions-cool/issues-helper@v3
         with:
@@ -97,7 +102,7 @@ jobs:
       - name: Generate contribution graph
         if: contains(env.ISSUE_LABEL, 'invalid') == false
         run: |
-          echo '${{ github.event.issue.body }}' | sed '/^$/d' | sed '1,/```/d' | sed '/```/,$d' > tools/contribution/graph.txt
+          echo -e '${{ env.ISSUE_BODY }}' | sed '/^$/d' | sed '1,/```/d' | sed '/```/,$d' > tools/contribution/graph.txt
           cat tools/contribution/graph.txt
 
           pip install numpy
