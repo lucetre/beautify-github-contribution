@@ -19,6 +19,9 @@ jobs:
           actions: 'update-issue'
           labels: 'application-form,validating'
 
+      - run: |
+          echo '${{ github.event.issue.body }}' | sed '/^$/d' | sed '1,/GitHub PAT/d' | sed '/Start my/,$d'
+
       - name: Set label as valid
         if: contains(github.event.issue.body, 'xxx') == true
         run: |
@@ -28,10 +31,11 @@ jobs:
           then
             echo "ISSUE_LABEL=valid,shipped-to-deploy" >> $GITHUB_ENV
           fi
+
       - name: Set label as invalid
         if: contains(github.event.issue.body, 'xxx') == false
         run: echo "ISSUE_LABEL=invalid" >> $GITHUB_ENV
-        
+
       - name: Update issue
         uses: actions-cool/issues-helper@v3
         with:
@@ -58,7 +62,7 @@ jobs:
           actions: 'unlock-issue'
 
       - name: Welcome comment
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
+        if: github.event.action == 'opened'
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'create-comment'
@@ -147,5 +151,5 @@ jobs:
       - uses: EndBug/add-and-commit@v9
         with:
           default_author: github_actions
-          message: '[Issue #${{ github.event.issue.number }}] Schdule contribution for `${{ github.event.issue.user.login }}`'
+          message: '[Issue #${{ github.event.issue.number }}] Schedule contribution for `${{ github.event.issue.user.login }}`'
           add: 'scheduler --force'

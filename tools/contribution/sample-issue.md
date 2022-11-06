@@ -1,13 +1,13 @@
-### [Form A] Choose a shape you want for GitHub Contribution Graph to be.
+### [Form A] Choose a shape you want
 
 _No response_
 
-### [Form B] Type your string to view on GitHub Contribution Graph.
+### [Form B] Type your string
 
 _No response_
 
-### [Form C] Manually design your GitHub Contribution pattern.
-xxx
+### [Form C] Manually design your pattern
+
 ```
 01010101010101010101010101010101010101010101010101010
 10101010101010101010101010101010101010101010101010101
@@ -18,7 +18,11 @@ xxx
 01010101010101010101010101010101010101010101010101010
 ```
 
+
+### GitHub PAT to delegate your contribution
+
+ghp_hello
 
 ### Start my GitHub Contribution
 
-- [x  ] Let my GitHub bot start to contribute beautifully from now on.
+- [ ] Let my GitHub bot start to contribute beautifully from now on.
