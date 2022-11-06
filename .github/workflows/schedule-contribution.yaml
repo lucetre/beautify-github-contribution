@@ -20,9 +20,8 @@ jobs:
 
       - id: get-contributor-list
         run: |
-          cat scheduler/${{ env.TODAY }}/CONTRIBUTORS | tr A-Z a-z 
-          cat scheduler/${{ env.TODAY }}/CONTRIBUTORS | tr A-Z a-z | tr '-' '_'
-          CONTRIBUTORS=($(cat scheduler/${{ env.TODAY }}/CONTRIBUTORS | tr A-Z a-z  | tr '-' '_'))
+          cat scheduler/${{ env.TODAY }}/CONTRIBUTORS | tr a-z A-Z | tr '-' '_'
+          CONTRIBUTORS=($(cat scheduler/${{ env.TODAY }}/CONTRIBUTORS | tr a-z A-Z | tr '-' '_'))
           printf '%s\n' "${CONTRIBUTORS[@]}" | jq -R . | jq -s .
           echo contributors=$(printf '%s\n' "${CONTRIBUTORS[@]}" | jq -R . | jq -s .) >>$GITHUB_OUTPUT
 
