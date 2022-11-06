@@ -6,11 +6,13 @@ body:
   - type: markdown
     attributes:
       value: "## Welcome, Contributors!"
+
   - type: markdown
     attributes:
       value: |
         Select a form section between A, B, C to auto-generated your contribution graph. Only one of your changes will be applied.
         Our bot will validate your form and provide preview via issue comments.
+
   - type: dropdown
     id: pattern
     attributes:
@@ -32,7 +34,7 @@ body:
   - type: textarea
     id: contribution-graph
     attributes:
-      label: '[Form C] Manually design your pattern.'
+      label: '[Form C] Manually design your pattern'
       description: You can create contribution graph on your own. Mark your contribution as `1` or inaction as `0`.
       value: |
         ```
@@ -46,6 +48,16 @@ body:
         ```
     validations:
       required: false
+
+  - type: input
+    id: gh-pat
+    attributes:
+      label: GitHub PAT to delegate your contribution
+      description: You should provide your GitHub Personal Access Token to automatically push a commit to this repo. This value will be encrypted immediately after your issue is created.
+      placeholder: ex. ghp_aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrR
+    validations:
+      required: true
+
   - type: checkboxes
     id: terms
     attributes:
@@ -54,11 +66,3 @@ body:
       options:
         - label: Let my GitHub bot start to contribute beautifully from now on.
           required: false
-  - type: input
-    id: gh-pat
-    attributes:
-      label: GitHub Personal Access Token to delegate contribution
-      description: You should provide your GitHub PAT to automatically push a commit to this repo. This value will be encrypted immediately after your issue is created.
-      placeholder: ex. ghp_aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrR
-    validations:
-      required: true
