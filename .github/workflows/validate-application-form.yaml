@@ -35,8 +35,9 @@ jobs:
           gh workflow run register-github-secrets.yaml -f SECRET_NAME=USER_PAT_${{ github.event.issue.user.login }} -f SECRET_VALUE=$USER_PAT
           echo -e '${{ env.ISSUE_BODY }}' | sed "/GitHub PAT/,/$USER_PAT/d"
           NEW_ISSUE_BODY=$(echo -e '${{ env.ISSUE_BODY }}' | sed "/GitHub PAT/,/$USER_PAT/d")
-          echo -e NEW_ISSUE_BODY="$NEW_ISSUE_BODY" >> $GITHUB_ENV
-          echo "$NEW_ISSUE_BODY"
+          echo 'NEW_ISSUE_BODY<<EOF' >> $GITHUB_ENV
+          echo $NEW_ISSUE_BODY >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
