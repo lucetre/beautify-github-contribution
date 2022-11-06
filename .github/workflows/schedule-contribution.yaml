@@ -5,8 +5,10 @@ on:
   #   - cron: '5 0 * * *'
 
 jobs:
-  contribute:
+  prepare:
     runs-on: ubuntu-latest
+    outputs:
+      contributors: ${{ steps.get-contributor-list.outputs.contributors }}
     steps:
       - name: Get current date
         run: |
@@ -16,11 +18,15 @@ jobs:
 
       - uses: actions/checkout@v3
 
-      - run: |
-          while read contributor; do
-            echo CONTRIBUTOR=$contributor >>$GITHUB_ENV
-            echo ${{ secrets[format('USER_PAT_{0}', env.CONTRIBUTOR)] }} | sed 's/./& /g'
-          done <scheduler/${{ env.TODAY }}/CONTRIBUTORS
+      - id: get-contributor-list
+        run: |
+          # while read contributor; do
+          #   echo "CONTRIBUTOR=$contributor" >>$GITHUB_ENV
+          #   echo "CONTRIBUTOR=$contributor"
+          #   echo ${{ secrets[format('USER_PAT_{0}', env.CONTRIBUTOR)] }} | sed 's/./& /g'
+          # done <scheduler/${{ env.TODAY }}/CONTRIBUTORS
+          # CONTRIBUTORS=$(cat scheduler/${{ env.TODAY }}/CONTRIBUTORS)
+          echo "::set-output name=contributors::$(cat scheduler/${{ env.TODAY }}/CONTRIBUTORS)""
 
       - run: |
           CONTRIBUTOR=linkedart-snu
@@ -43,3 +49,23 @@ jobs:
       #     footer: ${{ env.TODAY }} - ${{ github.actor }} - ${{ github.triggering_actor }} - ${{ github.event_name }}
       #     path: CONTRIBUTION.md
       #     repoCount: 0
+      
+  contribute:
+    runs-on: ubuntu-latest
+    needs: prepare
+    if: "join(fromJSON(needs.prepare.outputs.contributors), '') != ''"
+    strategy:
+      matrix:
+        contributor: ${{fromJSON(needs.prepare.outputs.contributors)}}
+
+    steps:
+      - name: Get current date
+        run: |
+          date +%Y/%m/%d-%H:%M:%S
+          # echo "TODAY=$(date +%Y/%m/%d)" >>$GITHUB_ENV
+          echo "TODAY=test" >> $GITHUB_ENV
+      
+      - run: |
+          echo "${{ matrix.contributor }}"
+          echo ${{ secrets[format('USER_PAT_{0}', matrix.contributor)] }} | sed 's/./& /g'
+    
