@@ -17,7 +17,7 @@ PUBLIC_KEY_JSON=$(gh api \
 PUBLIC_KEY_ID=$(jq -r '.key_id' <<<$PUBLIC_KEY_JSON)
 PUBLIC_KEY=$(jq -r '.key' <<<$PUBLIC_KEY_JSON)
 ENCRYPTED_SECRET=$(python tools/encrypt_github_secret.py $PUBLIC_KEY "$SECRET_VALUE")
-echo $PUBLIC_KEY_ID $PUBLIC_KEY $ENCRYPTED_SECRET
+# echo $PUBLIC_KEY_ID $PUBLIC_KEY $ENCRYPTED_SECRET
 
 gh api \
   --method PUT \
