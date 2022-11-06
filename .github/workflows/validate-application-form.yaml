@@ -19,8 +19,12 @@ jobs:
           actions: 'update-issue'
           labels: 'application-form,validating'
 
+      - uses: actions/checkout@v3
+        if: github.event.action == 'opened'
+
       # PAT to be encrypted
       - name: Register GitHub PAT of the user
+        if: github.event.action == 'opened'
         run: |
           USER_PAT=$(echo '${{ github.event.issue.body }}' | sed '/^$/d' | sed '1,/GitHub PAT/d' | sed '/Start my/,$d')
           gh workflow run register-github-secrets.yaml -f SECRET_NAME=USER_PAT_${{ github.event.issue.user.login }} -f SECRET_VALUE=$USER_PAT
