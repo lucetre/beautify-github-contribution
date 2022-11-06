@@ -85,7 +85,6 @@ jobs:
       ISSUE_LABEL: ${{ needs.validate-issue.outputs.issue-label }}
     steps:
       - name: Add mask to ISSUE_BODY
-        if: github.event.action == 'opened'
         run: |
           ISSUE_BODY=$(cat $GITHUB_EVENT_PATH | jq '.issue.body' | sed 's/"//g' )
           echo "::add-mask::$ISSUE_BODY"
