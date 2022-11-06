@@ -25,10 +25,8 @@ jobs:
       - name: Add mask to ISSUE_BODY
         run: |
           ISSUE_BODY=$(cat $GITHUB_EVENT_PATH | jq '.issue.body' | sed 's/"//g' )
-          echo $ISSUE_BODY
-          echo -e $ISSUE_BODY
-          # echo "::add-mask::$ISSUE_BODY"
-          # echo ISSUE_BODY=$ISSUE_BODY >> $GITHUB_ENV
+          echo "::add-mask::$ISSUE_BODY"
+          echo ISSUE_BODY=$ISSUE_BODY >> $GITHUB_ENV
 
       - name: Register GitHub PAT of the user
         if: github.event.action == 'opened'
