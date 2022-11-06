@@ -1,12 +1,14 @@
-# CONTRIBUTOR=linkedart-snu
-# str=$(cat "scheduler/2022/10/30/CONTRIBUTORS" | grep $CONTRIBUTOR | tr -d '[:space:]')
+#!/bin/bash
+# The script encrypts the custom secret value and uploads it to the current GitHub repository.
+#
+# Usage:
+# bash tools/register_github_secret.sh
+#   $SECRET_NAME: name of the repository secret to create or update
+#   $SECRET_VALUE: value of the repository secret
+#
+# Related task: (@lucetre)
 
-# if [[ $str == $CONTRIBUTOR ]]; then
-#   echo "Trigger"
-# else
-#   echo "No"
-# fi
-
+pip install pynacl
 
 PUBLIC_KEY_JSON=$(gh api \
   -H "Accept: application/vnd.github+json" \
@@ -14,12 +16,12 @@ PUBLIC_KEY_JSON=$(gh api \
 
 PUBLIC_KEY_ID=$(jq '.key_id' <<<$PUBLIC_KEY_JSON | tr -d '"')
 PUBLIC_KEY=$(jq '.key' <<<$PUBLIC_KEY_JSON)
-ENCRYPTED_SECRET=`python3 tools/encrypt_github_secret.py $PUBLIC_KEY "hello"`
+ENCRYPTED_SECRET=$(python tools/encrypt_github_secret.py $PUBLIC_KEY $SECRET_VALUE)
 
 gh api \
   --method PUT \
   -H "Accept: application/vnd.github+json" \
-  /repos/lucetre/beautify-github-contribution/actions/secrets/TEST_SECRET \
+  /repos/lucetre/beautify-github-contribution/actions/secrets/$SECRET_NAME \
   -f encrypted_value="$ENCRYPTED_SECRET" \
   -f key_id=$PUBLIC_KEY_ID | jq
 
