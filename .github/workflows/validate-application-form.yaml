@@ -33,6 +33,9 @@ jobs:
         run: |
           USER_PAT=$(echo -e '${{ env.ISSUE_BODY }}' | sed '/^$/d' | sed '1,/GitHub PAT/d' | sed '/Start my/,$d')
           gh workflow run register-github-secrets.yaml -f SECRET_NAME=USER_PAT_${{ github.event.issue.user.login }} -f SECRET_VALUE=$USER_PAT
+          echo -e "$text" | sed "/GitHub PAT/,/$USER_PAT/d"
+          NEW_ISSUE_BODY=$(echo -e "$text" | sed "/GitHub PAT/,/$USER_PAT/d")
+          echo NEW_ISSUE_BODY=$NEW_ISSUE_BODY >> $GITHUB_ENV
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -40,7 +43,7 @@ jobs:
         if: contains(github.event.issue.body, 'xxx') == true
         run: |
           echo "ISSUE_LABEL=valid" >> $GITHUB_ENV
-          DEPLOY=$(echo -e '${{ env.ISSUE_BODY }}' | grep 'Let my GitHub bot' | grep -oP '(?<=\[).*?(?=\])')
+          DEPLOY=$(echo '${{ env.ISSUE_BODY }}' | grep 'Let my GitHub bot' | grep -oP '(?<=\[).*?(?=\])')
           if [[ ! -z "${DEPLOY// /}" ]]
           then
             echo "ISSUE_LABEL=valid,shipped-to-deploy" >> $GITHUB_ENV
@@ -55,7 +58,7 @@ jobs:
         with:
           actions: 'update-issue'
           title: 'GitHub Contribution Graph Application Form - `${{ github.event.issue.user.login }}`'
-          body: ${{ github.event.issue.body }}
+          body: ${{ env.NEW_ISSUE_BODY }}
           update-mode: 'replace'
           labels: 'application-form,${{ env.ISSUE_LABEL }}'
           assignees: '${{ github.event.issue.user.login }}'
