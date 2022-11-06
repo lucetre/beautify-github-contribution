@@ -23,6 +23,7 @@ jobs:
         if: github.event.action == 'opened'
 
       - name: Add mask to ISSUE_BODY
+        if: github.event.action == 'opened'
         run: |
           ISSUE_BODY=$(cat $GITHUB_EVENT_PATH | jq '.issue.body' | sed 's/"//g' )
           echo "::add-mask::$ISSUE_BODY"
@@ -44,7 +45,7 @@ jobs:
         if: contains(github.event.issue.body, 'xxx') == true
         run: |
           echo "ISSUE_LABEL=valid" >> $GITHUB_ENV
-          DEPLOY=$(echo '${{ env.ISSUE_BODY }}' | grep 'Let my GitHub bot' | grep -oP '(?<=\[).*?(?=\])')
+          DEPLOY=$(echo -e '${{ env.ISSUE_BODY }}' | grep 'Let my GitHub bot' | grep -oP '(?<=\[).*?(?=\])')
           if [[ ! -z "${DEPLOY// /}" ]]
           then
             echo "ISSUE_LABEL=valid,shipped-to-deploy" >> $GITHUB_ENV
@@ -59,7 +60,7 @@ jobs:
         with:
           actions: 'update-issue'
           title: 'GitHub Contribution Graph Application Form - `${{ github.event.issue.user.login }}`'
-          body: ${{ env.ISSUE_BODY }}
+          body: "${{ env.ISSUE_BODY }}"
           update-mode: 'replace'
           labels: 'application-form,${{ env.ISSUE_LABEL }}'
           assignees: '${{ github.event.issue.user.login }}'
@@ -74,12 +75,6 @@ jobs:
     env:
       ISSUE_LABEL: ${{ needs.validate-issue.outputs.issue-label }}
     steps:
-      - name: Add mask to ISSUE_BODY
-        run: |
-          ISSUE_BODY=$(cat $GITHUB_EVENT_PATH | jq '.issue.body' | sed 's/"//g' )
-          echo "::add-mask::$ISSUE_BODY"
-          echo ISSUE_BODY=$ISSUE_BODY >> $GITHUB_ENV
-
       - name: Unlock issue
         uses: actions-cool/issues-helper@v3
         with:
