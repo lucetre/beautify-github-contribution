@@ -9,9 +9,17 @@
 
 # gh workflow run register-github-secrets.yaml -f SECRET_NAME=scully -f SECRET_VALUE=hello
 
-text='''
-fdsafs\nPATTERN-1\nFirst line of unimportant text\nSecond line of unimportant text\nPATTERN-2\nSome more texts (may/ maynt be important!)\ndskfl\nfds
-'''
-new_text=$(echo -e "$text" | sed '/PATTERN-1/,/PATTERN-2/d')
-echo -e "$text"
-echo "$new_text"
+# text='''
+# fdsafs\nPATTERN-1\nFirst line of unimportant text\nSecond line of unimportant text\nPATTERN-2\nSome more texts (may/ maynt be important!)\ndskfl\nfds
+# '''
+# new_text=$(echo -e "$text" | sed '/PATTERN-1/,/PATTERN-2/d')
+# echo -e "$text"
+# echo "$new_text"
+
+while read user; do
+  echo "USER_PAT_$user"
+done <tools/CONTRIBUTORS
+
+CONTRIBUTOR=linkedart-snu
+str=$(CONTRIBUTORS | grep $CONTRIBUTOR | tr -d '[:space:]')
+
