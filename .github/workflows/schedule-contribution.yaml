@@ -19,7 +19,6 @@ jobs:
       - run: |
           while read contributor; do
             echo "USER_PAT_$contributor"
-            # echo ${{ secrets[format('USER_PAT_{0}', $contributor)] }} | sed 's/./& /g'
           done <scheduler/${{ env.TODAY }}/CONTRIBUTORS
 
       - run: |
