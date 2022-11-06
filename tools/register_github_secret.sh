@@ -19,6 +19,8 @@ PUBLIC_KEY=$(jq -r '.key' <<<$PUBLIC_KEY_JSON)
 ENCRYPTED_SECRET=$(python tools/encrypt_github_secret.py $PUBLIC_KEY "$SECRET_VALUE")
 # echo $PUBLIC_KEY_ID $PUBLIC_KEY $ENCRYPTED_SECRET
 
+SECRET_NAME=`echo "${SECRET_NAME^^}" | tr - _`
+
 gh api \
   --method PUT \
   -H "Accept: application/vnd.github+json" \
