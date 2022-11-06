@@ -8,6 +8,16 @@ jobs:
   validate-issue:
     runs-on: ubuntu-latest
     steps:
+      - name: Welcome comment
+        if: github.event.action == 'opened'
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'create-comment'
+          body: |
+            Welcome, Contributor @${{ github.event.issue.user.login }}!
+            Our bot will soon validate your form and provide preview via issue comments below.
+          emoji: 'eyes,heart'
+
       - name: Lock issue
         uses: actions-cool/issues-helper@v3
         with:
@@ -75,20 +85,17 @@ jobs:
     env:
       ISSUE_LABEL: ${{ needs.validate-issue.outputs.issue-label }}
     steps:
+      - name: Add mask to ISSUE_BODY
+        if: github.event.action == 'opened'
+        run: |
+          ISSUE_BODY=$(cat $GITHUB_EVENT_PATH | jq '.issue.body' | sed 's/"//g' )
+          echo "::add-mask::$ISSUE_BODY"
+          echo ISSUE_BODY=$ISSUE_BODY >> $GITHUB_ENV
+
       - name: Unlock issue
         uses: actions-cool/issues-helper@v3
         with:
           actions: 'unlock-issue'
-
-      - name: Welcome comment
-        if: github.event.action == 'opened'
-        uses: actions-cool/issues-helper@v3
-        with:
-          actions: 'create-comment'
-          body: |
-            Welcome, Contributor @${{ github.event.issue.user.login }}!
-            Our bot will soon validate your form and provide preview via issue comments below.
-          emoji: 'eyes,heart'
 
       - uses: actions/checkout@v3
         if: contains(env.ISSUE_LABEL, 'invalid') == false
