@@ -28,6 +28,7 @@ jobs:
     needs: prepare
     if: "join(fromJSON(needs.prepare.outputs.contributors), '') != ''"
     strategy:
+      max-parallel: 1
       matrix:
         contributor: ${{fromJSON(needs.prepare.outputs.contributors)}}
 
