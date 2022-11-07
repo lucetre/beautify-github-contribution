@@ -8,4 +8,4 @@ Contribution log for beautifying your GitHub contribution graph.
 
 ---
 
-test - linkedart-snu - push
+2022/11/07 - LINKEDART_SNU - schedule
