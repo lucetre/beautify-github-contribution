@@ -44,6 +44,11 @@ jobs:
           # echo ${{ secrets[format('USER_PAT_{0}', matrix.contributor)] }} | sed 's/./& /g'
           echo CONTRIBUTOR_PAT=${{ secrets[format('USER_PAT_{0}', matrix.contributor)] }} >>$GITHUB_ENV
     
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+      
       - name: Push empty commit
         continue-on-error: true
         uses: actions-js/push@master
