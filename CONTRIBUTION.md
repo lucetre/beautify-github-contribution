@@ -8,4 +8,4 @@ Contribution log for beautifying your GitHub contribution graph.
 
 ---
 
-2022/12/21 - LINKEDART_SNU - schedule
+2022/12/21 - SNUCV_PIP - schedule
