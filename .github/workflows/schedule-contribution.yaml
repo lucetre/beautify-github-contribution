@@ -1,8 +1,8 @@
 name: Beautify my GitHub Contribution 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '5 0 * * *'
+  # schedule:
+  #   - cron: '5 0 * * *'
 
 jobs:
   prepare:
